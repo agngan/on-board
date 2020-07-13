@@ -11,13 +11,10 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String username;
     private String password;
     private String email;
-
-    @OneToMany(mappedBy = "user")
-    private List<Score> scores;
 
     @ManyToMany
     @JoinTable(
@@ -25,4 +22,7 @@ public class User {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
     private List<Game> games;
+
+    @OneToMany(mappedBy = "user")
+    private List<Win> wins;
 }

@@ -11,12 +11,12 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Long id;
     private String apiId;
-
-    @OneToMany(mappedBy = "game")
-    private List<Score> scores;
 
     @ManyToMany(mappedBy = "games")
     private List<User> users;
+
+    @OneToMany(mappedBy = "game")
+    private List<Win> wins;
 }

@@ -12,8 +12,8 @@ INSERT INTO USER_GAME (user_id, game_id) VALUES (1,3);
 INSERT INTO USER_GAME (user_id, game_id) VALUES (2,1);
 INSERT INTO USER_GAME (user_id, game_id) VALUES (3,3);
 
-INSERT INTO Score (user_id, game_id, score) VALUES (1, 1, 57);
-INSERT INTO Score (user_id, game_id, score) VALUES (1, 2, 33);
-INSERT INTO Score (user_id, game_id, score) VALUES (1, 3, 14);
-INSERT INTO Score (user_id, game_id, score) VALUES (2, 1, 12);
-INSERT INTO Score (user_id, game_id, score) VALUES (3, 3, 44);
+INSERT INTO Win (user_id, game_id, date) VALUES (1, 1, DATE('2020-07-13'));
+INSERT INTO Win (user_id, game_id, date) VALUES (1, 2, DATE('2020-07-13'));
+INSERT INTO Win (user_id, game_id, date) VALUES (1, 3, DATE('2020-07-13'));
+INSERT INTO Win (user_id, game_id, date) VALUES (2, 1, DATE('2020-07-13'));
+INSERT INTO Win (user_id, game_id, date) VALUES (3, 3, DATE('2020-07-13'));
