@@ -2,10 +2,8 @@ package com.onboard.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,4 +13,10 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String apiId;
+
+    @OneToMany(mappedBy = "game")
+    private List<Score> scores;
+
+    @ManyToMany(mappedBy = "games")
+    private List<User> users;
 }

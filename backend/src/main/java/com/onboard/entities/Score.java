@@ -2,10 +2,8 @@ package com.onboard.entities;
 
 import lombok.Data;
 
-import javax.persistence.Embeddable;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 
 @Entity
@@ -16,9 +14,26 @@ public class Score {
     private ScoreId id;
     private Integer score;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private User user;
+    @ManyToOne
+    @JoinColumn(name = "game_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Game game;
+
     @Embeddable
+    @Data
     private class ScoreId implements Serializable {
-        private Integer gameId;
+//        @ManyToOne
+//        @JoinColumn(name = "user_id")
+//        private User user;
+        @Column(name = "user_id")
         private Integer userId;
+//        @ManyToOne
+//        @JoinColumn(name = "game_id")
+//        private Game game;
+        @Column(name = "game_id")
+        private Integer gameId;
+
     }
 }
