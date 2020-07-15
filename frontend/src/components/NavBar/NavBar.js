@@ -8,10 +8,10 @@ class NavBar extends Component {
     render() {
         return (
             <Navbar className="shadow-sm nav-bar navbar-light">
-                <Navbar.Brand justify href="#"><span className="nav-brand-text">OnBoard</span></Navbar.Brand>
+                <Navbar.Brand justify href="/"><span className="nav-brand-text">OnBoard</span></Navbar.Brand>
                 <Nav className="ml-auto">
                     <Nav.Item>
-                        <Nav.Link href="#"><span className="nav-item-text">My&nbsp;games</span></Nav.Link>
+                        <Nav.Link href="/my-games"><span className="nav-item-text">My&nbsp;games</span></Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
                         <Nav.Link>

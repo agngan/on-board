@@ -3,6 +3,8 @@ import './App.css';
 import NavBar from "./components/NavBar/NavBar";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import HomePage from "./pages/HomePage";
+import MyGames from "./pages/MyGames";
+import Ranking from "./pages/Ranking";
 
 function App() {
   return (
@@ -11,6 +13,8 @@ function App() {
         <Router>
             <Switch>
                 <Route exact path="/" component={HomePage} />
+                <Route exact path="/my-games" component={MyGames} />
+                <Route exact path="/ranking" component={Ranking} />
             </Switch>
         </Router>
     </div>
