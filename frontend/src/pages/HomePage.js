@@ -69,6 +69,15 @@ function Track({ source, target, getTrackProps }) {
 
 class HomePage extends Component {
 
+    state = {
+      numberOfPlayers: []
+    };
+
+    onChangeNumberOfPlayers = values => {
+        this.setState({numberOfPlayers: values});
+        console.log(this.state);
+    };
+
     render() {
         return (
             <div>
@@ -81,6 +90,7 @@ class HomePage extends Component {
                         step={1}
                         mode={2}
                         values={[30, 60]}
+                        onChange={this.onChangeNumberOfPlayers}
                     >
                         <Rail>
                             {({ getRailProps }) => (
