@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import ButtonGroup from "react-bootstrap/ButtonGroup";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import Dropdown from "react-bootstrap/Dropdown";
 import "./CategoriesDropdown.css"

@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Col from "react-bootstrap/Col";
 import CustomSlider from "../components/CustomSlider";
-import CategoriesDropdown from "../components/CategoriesDropdown";
+import CategoriesDropdown from "../components/CategoriesDropdown/CategoriesDropdown";
 import "./HomePage.css";
 
 const initialMinNumberOfPlayers = [4];
-const initialPlaytimeRange = [30,90];
+const initialPlaytimeRange = [30, 90];
 const initialMinAge = [13];
 
 class HomePage extends Component {
@@ -12,8 +15,9 @@ class HomePage extends Component {
     state = {
         minNumberOfPlayers: [initialMinNumberOfPlayers],
         playtimeRange: initialPlaytimeRange,
-        minAge : initialMinAge,
-        category: ""
+        minAge: initialMinAge,
+        category: "",
+        gameName: ""
     };
 
     onMinNumberOfPlayersChange = playersNumber => {
@@ -45,19 +49,41 @@ class HomePage extends Component {
         console.log(this.state);
     };
 
+    onSearchClick = () => {
+        console.log(this.state)
+        // TODO: Send request to backend
+    };
+
+    onGameNameChange = event => {
+        const newState = this.state;
+        newState.gameName = event.target.value;
+        this.setState(newState);
+        console.log(this.state)
+    };
+
+    onKeyDown = event => {
+        if (event.key === 'Enter')
+            this.onFindClick();
+    };
+
+    onFindClick = () => {
+        console.log(this.state)
+        // TODO: Send request to backend
+    };
+
     render() {
         return (
             <div>
-                <div className="title" >Find a game perfect for you!</div>
+                <div className="title">Find a game perfect for you!</div>
 
                 <div className="box-left">
                     <span className="form-title">Min. number of players:</span>
                     <CustomSlider
-                        domain={[1,50]}
+                        domain={[1, 50]}
                         defaultValues={initialMinNumberOfPlayers}
                         onChange={this.onMinNumberOfPlayersChange}
                         left={true}
-                        right={false} />
+                        right={false}/>
                 </div>
 
                 <div className="box-right">
@@ -67,17 +93,17 @@ class HomePage extends Component {
                         defaultValues={initialPlaytimeRange}
                         onChange={this.onPlaytimeRangeChange}
                         left={false}
-                        right={false} />
+                        right={false}/>
                 </div>
 
                 <div className="box-left" style={{paddingTop: '10px'}}>
                     <span className="form-title">Min. age:</span>
                     <CustomSlider
-                        domain={[0,21]}
+                        domain={[0, 21]}
                         defaultValues={initialMinAge}
                         onChange={this.onMinAgeChange}
                         left={true}
-                        right={false} />
+                        right={false}/>
                 </div>
 
                 <div className="box-right" style={{paddingTop: '10px'}}>
@@ -85,6 +111,23 @@ class HomePage extends Component {
                     <CategoriesDropdown onCategoryChange={this.onCategoryChange}/>
                 </div>
 
+                <div className="center">
+                    <Button className="search-button" onClick={this.onSearchClick}><span className="search-button-text">SEARCH!</span></Button>
+                </div>
+
+                <div className="search-form">
+                    <div className="search-text">Are you looking for something specific?</div>
+                    <Form className="search-bar">
+                        <Form.Row>
+                            <Col>
+                                <Form.Control type="text" placeholder="Find a game by its name" onChange={this.onGameNameChange} onKeyDown={this.onKeyDown} />
+                            </Col>
+                            <Col>
+                                <Button className="search-button" type="submit" onClick={this.onFindClick}><span className="search-button-text">FIND</span></Button>
+                            </Col>
+                        </Form.Row>
+                    </Form>
+                </div>
             </div>
         );
     }

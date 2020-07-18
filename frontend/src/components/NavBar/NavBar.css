@@ -27,6 +27,11 @@
 .nav-login-button {
     float: right;
     margin-top: -10px;
+    background-color: #050D2B;
+}
+
+.nav-login-button:hover {
+    background-color: #0a1e5f;
 }
 
 .nav-login-button-text {
