@@ -68,7 +68,6 @@ export function Track({ source, target, getTrackProps }) {
 class CustomSlider extends Component {
     render() {
         return (
-            <div>
             <Slider
                 rootStyle={sliderStyle}
                 domain={this.props.domain}
@@ -110,11 +109,8 @@ class CustomSlider extends Component {
                     )}
                 </Tracks>
             </Slider>
-            </div>
         );
     }
 }
-
-
 
 export default CustomSlider;

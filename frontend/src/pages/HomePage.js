@@ -1,27 +1,46 @@
 import React, {Component} from 'react';
 import CustomSlider from "../components/CustomSlider";
+import CategoriesDropdown from "../components/CategoriesDropdown";
 import "./HomePage.css";
 
-const initialMinNumberOfPlayers = 4;
+const initialMinNumberOfPlayers = [4];
 const initialPlaytimeRange = [30,90];
+const initialMinAge = [13];
 
 class HomePage extends Component {
 
     state = {
         minNumberOfPlayers: [initialMinNumberOfPlayers],
-        playtimeRange: initialPlaytimeRange
+        playtimeRange: initialPlaytimeRange,
+        minAge : initialMinAge,
+        category: ""
     };
 
-    onNumberOfPlayersChange = values => {
+    onMinNumberOfPlayersChange = playersNumber => {
         const newState = this.state;
-        newState.minNumberOfPlayers = values;
+        newState.minNumberOfPlayers = playersNumber;
         this.setState(newState);
         console.log(this.state);
     };
 
-    onPlaytimeRangeChange = values => {
+    onPlaytimeRangeChange = playtimeRange => {
         const newState = this.state;
-        newState.playtimeRange = values;
+        newState.playtimeRange = playtimeRange;
+        this.setState(newState);
+        console.log(this.state);
+    };
+
+    onMinAgeChange = age => {
+        const newState = this.state;
+        newState.minAge = age;
+        this.setState(newState);
+        console.log(this.state);
+    };
+
+    onCategoryChange = category => {
+        if (this.state.category === category) return;
+        const newState = this.state;
+        newState.category = category;
         this.setState(newState);
         console.log(this.state);
     };
@@ -30,27 +49,42 @@ class HomePage extends Component {
         return (
             <div>
                 <div className="title" >Find a game perfect for you!</div>
-                <div className="slider-left">
+
+                <div className="box-left">
                     <span className="form-title">Min. number of players:</span>
                     <CustomSlider
-                        key={1}
                         domain={[1,50]}
-                        defaultValues={[initialMinNumberOfPlayers]}
-                        onChange={this.onNumberOfPlayersChange}
-                        left={false}
-                        right={true} />
+                        defaultValues={initialMinNumberOfPlayers}
+                        onChange={this.onMinNumberOfPlayersChange}
+                        left={true}
+                        right={false} />
                 </div>
 
-                <div className="slider-right">
+                <div className="box-right">
                     <span className="form-title">Playtime in minutes:</span>
                     <CustomSlider
-                        key={2}
                         domain={[0, 300]}
                         defaultValues={initialPlaytimeRange}
                         onChange={this.onPlaytimeRangeChange}
                         left={false}
                         right={false} />
                 </div>
+
+                <div className="box-left" style={{paddingTop: '10px'}}>
+                    <span className="form-title">Min. age:</span>
+                    <CustomSlider
+                        domain={[0,21]}
+                        defaultValues={initialMinAge}
+                        onChange={this.onMinAgeChange}
+                        left={true}
+                        right={false} />
+                </div>
+
+                <div className="box-right" style={{paddingTop: '10px'}}>
+                    <span className="form-title">Category:</span>
+                    <CategoriesDropdown onCategoryChange={this.onCategoryChange}/>
+                </div>
+
             </div>
         );
     }
