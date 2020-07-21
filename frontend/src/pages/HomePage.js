@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import CustomSlider from "../components/CustomSlider";
 import CategoriesDropdown from "../components/CategoriesDropdown/CategoriesDropdown";
+import GameInfo from "../components/GameInfo/GameInfo";
 import "./HomePage.css";
 
 const initialMinNumberOfPlayers = [4];
@@ -128,6 +129,9 @@ class HomePage extends Component {
                         </Form.Row>
                     </Form>
                 </div>
+
+                <GameInfo/>
+                <GameInfo/>
             </div>
         );
     }
