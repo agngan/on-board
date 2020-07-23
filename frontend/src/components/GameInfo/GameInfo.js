@@ -7,26 +7,30 @@ class GameInfo extends Component {
     render() {
         return (
             <div className="game-info-background">
-                <div className="picture-box"> picture </div>
+                <div className="picture-box">
+                    <img
+                        src={this.props.game.image}
+                        alt={this.props.game.name}
+                        style={{height: '100%', width: '100%', objectFit: 'contain'}}/>
+                </div>
 
-                <div className="game-title">Bohnanza</div>
+                <div className="game-title">{this.props.game.name}</div>
 
                 <div className="game-info-left">
-                    <span>Players: 2-7</span><br/>
-                    <span>Playtime: 45-60 min</span><br/>
-                    <span>Minimum age: 13</span><br/>
-                    <span>Year published: 1997</span><br/>
-                    <span>Top player: Agnieszka</span><br/><br/>
-                    <Button className="custom-button mt-2"><span className="custom-button-text">See ranking</span></Button>
-                    <Button className="custom-button mt-2"><span className="custom-button-text">Add to my games</span></Button>
+                    <span>Players: {this.props.game.players}</span><br/>
+                    <span>Playtime: {this.props.game.playtime} min</span><br/>
+                    <span>Minimum age: {this.props.game.minAge}</span><br/>
+                    <span>Year published: {this.props.game.yearPublished}</span><br/>
+                    <span>Top player: {this.props.game.topPlayer}</span><br/><br/>
+                    <Button className="custom-button mt-2"><span
+                        className="custom-button-text">See ranking</span></Button>
+                    <Button className="custom-button mt-2"><span
+                        className="custom-button-text">Add to my games</span></Button>
                 </div>
 
                 <div className="game-info-right">
                     <span>Description:</span><br/>
-                    <span>
-                        This great card game is about planting, trading, and selling beans - 11 kinds of beans (this English version includes all the cards from the original game and the first expansion).
-                        Players try to collect large sets of beans to sell for gold. There is limited growing space and always new beans to plant. To avoid planting unwanted beans, players trade them to other players who want them for their bean fields.
-                    </span>
+                    <span>{this.props.game.description}</span>
                 </div>
             </div>
         );
