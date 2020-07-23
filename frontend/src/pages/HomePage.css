@@ -1,0 +1,66 @@
+.HomePage {
+    text-align: center;
+}
+
+.title {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    margin-top: 10px;
+}
+
+.form-title {
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    float: left;
+}
+
+.box-left {
+    float: left;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 40%;
+}
+
+.box-right {
+    float: right;
+    margin-top: 10px;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 40%;
+}
+
+.center {
+    width: 100%;
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-form {
+    width: 100%;
+    height: 80px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.search-text {
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    color: white;
+}
+
+.search-bar {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 40%;
+}
+

@@ -11,7 +11,7 @@
 }
 
 .nav-item-text {
-    font-family: Roboto sans-serif;
+    font-family: Roboto, sans-serif;
     font-style: normal;
     font-weight: bold;
     font-size: 20px;
@@ -27,6 +27,11 @@
 .nav-login-button {
     float: right;
     margin-top: -10px;
+    background-color: #050D2B;
+}
+
+.nav-login-button:hover {
+    background-color: #0a1e5f;
 }
 
 .nav-login-button-text {
