@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Button from "react-bootstrap/Button";
 import "./GameInfo.css"
+import "../../stylesheets/CustomButtons.css"
 
 class GameInfo extends Component {
     render() {
@@ -16,8 +17,8 @@ class GameInfo extends Component {
                     <span>Minimum age: 13</span><br/>
                     <span>Year published: 1997</span><br/>
                     <span>Top player: Agnieszka</span><br/><br/>
-                    <Button className="game-info-button">See ranking</Button>
-                    <Button className="game-info-button">Add to my games</Button>
+                    <Button className="custom-button mt-2"><span className="custom-button-text">See ranking</span></Button>
+                    <Button className="custom-button mt-2"><span className="custom-button-text">Add to my games</span></Button>
                 </div>
 
                 <div className="game-info-right">

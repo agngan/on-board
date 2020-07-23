@@ -6,6 +6,7 @@ import CustomSlider from "../components/CustomSlider";
 import CategoriesDropdown from "../components/CategoriesDropdown/CategoriesDropdown";
 import GameInfo from "../components/GameInfo/GameInfo";
 import "./HomePage.css";
+import "../stylesheets/CustomButtons.css"
 
 const initialMinNumberOfPlayers = [4];
 const initialPlaytimeRange = [30, 90];
@@ -113,7 +114,9 @@ class HomePage extends Component {
                 </div>
 
                 <div className="center">
-                    <Button className="search-button" onClick={this.onSearchClick}><span className="search-button-text">SEARCH!</span></Button>
+                    <div style={{width: '200px'}}>
+                        <Button className="custom-button" onClick={this.onSearchClick}><span className="custom-button-text">SEARCH!</span></Button>
+                    </div>
                 </div>
 
                 <div className="search-form">
@@ -124,7 +127,7 @@ class HomePage extends Component {
                                 <Form.Control type="text" placeholder="Find a game by its name" onChange={this.onGameNameChange} onKeyDown={this.onKeyDown} />
                             </Col>
                             <Col>
-                                <Button className="search-button" type="submit" onClick={this.onFindClick}><span className="search-button-text">FIND</span></Button>
+                                <Button className="custom-button" type="submit" onClick={this.onFindClick}><span className="custom-button-text">FIND</span></Button>
                             </Col>
                         </Form.Row>
                     </Form>
