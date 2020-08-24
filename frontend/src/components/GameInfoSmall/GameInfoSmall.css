@@ -1,0 +1,15 @@
+.game-info-small-background {
+    background-color: #9EA8FF;
+    border-radius: 20px;
+    margin: 20px 5%;
+    height: 330px;
+    padding: 15px;
+}
+
+.picture-box-small {
+    background-color: black;
+    width: 250px;
+    height: 300px;
+    float: left;
+    margin-right: 5%;
+}
