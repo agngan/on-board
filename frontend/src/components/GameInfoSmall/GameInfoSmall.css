@@ -1,0 +1,42 @@
+.game-info-small-background {
+    background-color: #9EA8FF;
+    border-radius: 20px;
+    margin: 20px 5%;
+    height: 330px;
+    padding: 15px;
+}
+
+.picture-box-small {
+    background-color: black;
+    width: 250px;
+    height: 300px;
+    float: left;
+    margin-right: 7%;
+}
+
+.game-title-small {
+    text-align: left;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 27px;
+    color: #050D2B;
+    width: 50%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.game-info-small {
+    width: 50%;
+    float: left;
+    text-align: left;
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.game-info-small-buttons {
+    align-self: center;
+    margin-top: 20px;
+}

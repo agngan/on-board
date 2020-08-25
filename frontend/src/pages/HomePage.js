@@ -3,17 +3,12 @@ import GameInfo from "../components/GameInfo/GameInfo";
 import GameInfoSearch from "../components/HomePageSearchForm/GameInfoSearch";
 import GameNameSearch from "../components/HomePageSearchForm/GameNameSearch";
 import "./HomePage.css";
-import "../stylesheets/CustomButtons.css"
+import "../stylesheets/CustomButtons.css";
 
 
 class HomePage extends Component {
 
     state = {
-        // minNumberOfPlayers: [initialMinNumberOfPlayers],
-        // playtimeRange: initialPlaytimeRange,
-        // minAge: initialMinAge,
-        // category: "",
-        // gameName: "",
         games: [
             {
                 name: "Bohnanza",
