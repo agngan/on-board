@@ -1,0 +1,25 @@
+.Ranking {
+    text-align: center;
+}
+
+.title {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    margin-top: 10px;
+}
+
+.ranking-table-header {
+    margin: 20px 5%;
+    height: 50px;
+    background-color: #7280FF;
+    border-radius: 20px;
+    padding-top: 7px;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: #000000;
+}
