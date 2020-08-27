@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./GameInfoSmall.css";
 import Button from "react-bootstrap/Button";
+import {Link} from "react-router-dom";
 
 class GameInfoSmall extends Component {
     render() {
@@ -24,8 +25,10 @@ class GameInfoSmall extends Component {
                     <div className="game-info-small-buttons">
                         <Button className="custom-button mt-2"><span
                             className="custom-button-text">I won!</span></Button>
-                        <Button className="custom-button mt-2"><span
+                        <Link to="/ranking">
+                            <Button className="custom-button mt-2"><span
                             className="custom-button-text">See ranking</span></Button>
+                        </Link>
                     </div>
                 </div>
 

@@ -2,8 +2,13 @@ import React, {Component} from 'react';
 import Button from "react-bootstrap/Button";
 import "./GameInfo.css"
 import "../../stylesheets/CustomButtons.css"
+import {Link, useHistory} from "react-router-dom";
+import {withRouter} from "react-router-dom";
+
+
 
 class GameInfo extends Component {
+
     render() {
         return (
             <div className="game-info-background">
@@ -22,10 +27,13 @@ class GameInfo extends Component {
                     <span>Minimum age: {this.props.game.minAge}</span><br/>
                     <span>Year published: {this.props.game.yearPublished}</span><br/>
                     <span>Top player: {this.props.game.topPlayer}</span><br/><br/>
-                    <Button className="custom-button mt-2"><span
-                        className="custom-button-text">See ranking</span></Button>
+
                     <Button className="custom-button mt-2"><span
                         className="custom-button-text">Add to my games</span></Button>
+                    <Link to="/ranking">
+                        <Button className="custom-button mt-2"><span
+                        className="custom-button-text">See ranking</span></Button>
+                    </Link>
                 </div>
 
                 <div className="game-info-right">
