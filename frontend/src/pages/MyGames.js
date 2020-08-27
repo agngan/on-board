@@ -39,7 +39,7 @@ class MyGames extends Component {
         return (
             <div>
                 <div className="title">My games:</div>
-                <Row md={2} className="my-games-row">
+                <Row sm={1} md={2}  className="my-games-row">
                     {this.state.myGames.map(game => <Col><GameInfoSmall key={game.name} game={game}/></Col>)}
                 </Row>
             </div>
