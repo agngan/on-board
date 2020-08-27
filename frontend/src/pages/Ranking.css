@@ -15,7 +15,21 @@
     height: 50px;
     background-color: #7280FF;
     border-radius: 20px;
-    padding-top: 7px;
+    align-items: center;
+
+    font-family: Roboto, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 25px;
+    color: #000000;
+}
+
+.ranking-table-element {
+    margin: 20px 5%;
+    height: 80px;
+    background-color: #9EA8FF;
+    border-radius: 20px;
+    align-items: center;
 
     font-family: Roboto, sans-serif;
     font-style: normal;
