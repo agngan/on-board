@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import Button from "react-bootstrap/Button";
 import "./GameInfo.css"
 import "../../stylesheets/CustomButtons.css"
-import {Link, useHistory} from "react-router-dom";
-import {withRouter} from "react-router-dom";
-
+import {Link} from "react-router-dom";
 
 
 class GameInfo extends Component {

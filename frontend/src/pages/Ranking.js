@@ -8,39 +8,45 @@ class Ranking extends Component {
 
     state = {
         gameName: "Bohnanza",
-        scores: [
-            {
-                id: 1,
-                user: "Agnieszka",
-                points: "150"
-            },
-            {
-                id: 2,
-                user: "Andrzej",
-                points: "150"
-            },
-            {
-                id:3,
-                user: "Ania",
-                points: "150"
-            },
-            {
-                id: 4,
-                user: "Agata",
-                points: "150"
-            },
-            {
-                id: 5,
-                user: "Iga",
-                points: "150"
-            },
-            {
-                id: 6,
-                user: "Szymon",
-                points: "150"
-            }
-        ]
+        error: null,
+        isLoaded: false,
+        scores: []
     };
+
+    componentDidMount() {
+        this.fetchRanking().then(this.processScores(), this.handleError());
+    }
+
+    fetchRanking() {
+        return fetch("http://localhost:8080/api/rankings/" + this.state.gameName)
+            .then(res => res.json()).then(res => res.scores);
+    }
+
+    processScores() {
+        return scores => {
+            scores.forEach(this.formatScore());
+            const newState = this.state;
+            newState.isLoaded = true;
+            newState.scores = scores;
+            this.setState(newState);
+        };
+    }
+
+    formatScore() {
+        return (score, i) => {
+            score.id = i + 1;
+            console.log(score);
+        }
+    }
+
+    handleError() {
+        return error => {
+            const newState = this.state;
+            newState.isLoaded = true;
+            newState.error = error;
+            console.log(error);
+        }
+    }
 
     render() {
         return (
@@ -53,9 +59,20 @@ class Ranking extends Component {
                     <Col>SCORE</Col>
                 </Row>
 
-                {this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>)}
+                {this.renderScores()}
+                {/*{this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>)}*/}
             </div>
         );
+    }
+
+    renderScores() {
+        if (this.state.error) {
+            return <span>Error</span>
+        } else if (!this.state.isLoaded) {
+            return <span>Loading...</span>
+        } else {
+            return this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>);
+        }
     }
 }
 
