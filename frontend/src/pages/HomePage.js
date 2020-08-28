@@ -11,6 +11,7 @@ class HomePage extends Component {
     state = {
         games: [
             {
+                id: 1,
                 name: "Bohnanza",
                 image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254186139-51cXhVYYHwL.jpg",
                 players: "2-7",
@@ -22,6 +23,7 @@ class HomePage extends Component {
                     "Players try to collect large sets of beans to sell for gold. There is limited growing space and always new beans to plant. To avoid planting unwanted beans, players trade them to other players who want them for their bean fields."
             },
             {
+                id: 2,
                 name: "Saboteur",
                 image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253385911-51SYQdt0ZPL.jpg",
                 players: "3-10",

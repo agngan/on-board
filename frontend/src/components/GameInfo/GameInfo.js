@@ -2,9 +2,7 @@ import React, {Component} from 'react';
 import Button from "react-bootstrap/Button";
 import "./GameInfo.css"
 import "../../stylesheets/CustomButtons.css"
-import {Link, useHistory} from "react-router-dom";
-import {withRouter} from "react-router-dom";
-
+import {Link} from "react-router-dom";
 
 
 class GameInfo extends Component {
@@ -30,7 +28,7 @@ class GameInfo extends Component {
 
                     <Button className="custom-button mt-2"><span
                         className="custom-button-text">Add to my games</span></Button>
-                    <Link to="/ranking">
+                    <Link to={{pathname: "/ranking", state: {gameId: this.props.game.id, gameName: this.props.game.name}}}>
                         <Button className="custom-button mt-2"><span
                         className="custom-button-text">See ranking</span></Button>
                     </Link>
