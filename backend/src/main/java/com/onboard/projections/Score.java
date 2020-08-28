@@ -12,19 +12,19 @@ import javax.persistence.ManyToOne;
 @Immutable
 @Entity
 @Data
-@Subselect("select U.id, U.username, count(*) points, G.name game_name\n" +
+@Subselect("select U.id, U.username, count(*) points, G.id game_id\n" +
         "from USER U\n" +
         "         join WIN W on U.id = W.user_id\n" +
         "         join GAME G on W.game_id = G.id\n" +
-        "group by game_name, user_id\n" +
+        "group by game_id, user_id\n" +
         "order by points DESC")
 class Score {
 
     @Id
-    Long id;
-    String username;
-    Long points;
+    private Long id;
+    private String username;
+    private Long points;
     @ManyToOne
-    @JoinColumn(name = "game_name")
+    @JoinColumn(name = "game_id")
     private Ranking ranking;
 }

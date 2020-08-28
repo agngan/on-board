@@ -12,11 +12,11 @@ import java.util.List;
 @Immutable
 @Entity
 @Data
-@Subselect("select name game_name from game")
+@Subselect("select id game_id from game")
 public class Ranking {
 
     @Id
-    String gameName;
+    private Long gameId;
     @OneToMany(mappedBy = "ranking")
     private List<Score> scores;
 }
