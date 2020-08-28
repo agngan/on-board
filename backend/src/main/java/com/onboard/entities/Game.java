@@ -13,6 +13,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String apiId;
+    private String name;
 
     @ManyToMany(mappedBy = "games")
     private List<User> users;
