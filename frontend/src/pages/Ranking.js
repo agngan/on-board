@@ -7,17 +7,24 @@ import './Ranking.css';
 class Ranking extends Component {
 
     state = {
-        gameName: "Bohnanza",
+        // gameName: "Bohnanza",
         error: null,
         isLoaded: false,
         scores: []
     };
 
     componentDidMount() {
+        const newState = this.state;
+        newState.gameName = this.props.location.state.gameName;
+        this.setState(newState);
+        // this.setState({gameName: this.props.location.state.gameName});
+        console.log(this.props.location.state.gameName);
+        console.log(this.state);
         this.fetchRanking().then(this.processScores(), this.handleError());
     }
 
     fetchRanking() {
+        console.log(this.state);
         return fetch("http://localhost:8080/api/rankings/" + this.state.gameName)
             .then(res => res.json()).then(res => res.scores);
     }
