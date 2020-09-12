@@ -7,7 +7,6 @@ import './Ranking.css';
 class Ranking extends Component {
 
     state = {
-        // gameName: "Bohnanza",
         error: null,
         isLoaded: false,
         scores: []
@@ -24,7 +23,8 @@ class Ranking extends Component {
 
     fetchRanking() {
         console.log(this.state);
-        return fetch("http://localhost:8080/api/rankings/" + this.props.location.state.gameId)
+        return fetch("http://localhost:8080/api/rankings/" + this.props.location.state.gameId,
+            {headers: {authorization:'Basic ' + window.btoa('Agnieszka:admin')}})
             .then(res => res.json()).then(res => res.scores);
     }
 
@@ -66,12 +66,12 @@ class Ranking extends Component {
                 </Row>
 
                 {this.renderScores()}
-                {/*{this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>)}*/}
             </div>
         );
     }
 
     renderScores() {
+        // TODO: make error and loading messages look good
         if (this.state.error) {
             return <span>Error</span>
         } else if (!this.state.isLoaded) {
