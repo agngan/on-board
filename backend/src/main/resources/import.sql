@@ -1,6 +1,6 @@
-INSERT INTO User (username, password, email) VALUES ('Agnieszka', 'admin', 'agnieszka@onboard.com');
-INSERT INTO User (username, password, email) VALUES ('Andrzej', 'user', 'andrzej@gmail.com');
-INSERT INTO User (username, password, email) VALUES ('Ania', 'user', 'anie@gmail.com');
+INSERT INTO User (username, password, email) VALUES ('Agnieszka', '$2y$10$CkDoe1NOD0QbpAf4Dpbt7Od1T.TZCLKDbeViQ5FmJg2mO7VxwjB56', 'agnieszka@onboard.com');
+INSERT INTO User (username, password, email) VALUES ('Andrzej', '$2y$10$mnXcZR1DHjQGq8r7osfmU..akhe5E//oW2pltq2z7Js9aktLKaFma', 'andrzej@gmail.com');
+INSERT INTO User (username, password, email) VALUES ('Ania', '$2y$10$mnXcZR1DHjQGq8r7osfmU..akhe5E//oW2pltq2z7Js9aktLKaFma', 'anie@gmail.com');
 
 INSERT INTO Game (api_id, name) VALUES ('F1aw7kyGTA', 'Bohnanza');
 INSERT INTO Game (api_id, name) VALUES ('M5treAlrHc', 'Saboteur');

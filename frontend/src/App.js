@@ -1,10 +1,12 @@
 import React from 'react';
-import './App.css';
-import NavBar from "./components/NavBar/NavBar";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
+import AuthenticatedRoute from "./components/Authentication/AuthenticatedRoute";
+import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage";
 import MyGames from "./pages/MyGames";
 import Ranking from "./pages/Ranking";
+import Login from "./pages/Login";
+import './App.css';
 
 function App() {
   return (
@@ -13,8 +15,9 @@ function App() {
         <Router>
             <Switch>
                 <Route exact path="/" component={HomePage} />
-                <Route exact path="/my-games" component={MyGames} />
+                <AuthenticatedRoute exact path="/my-games" component={MyGames} />
                 <Route exact path="/ranking" component={Ranking} />
+                <Route exact path="/login" component={Login} />
             </Switch>
         </Router>
     </div>

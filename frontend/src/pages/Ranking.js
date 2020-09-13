@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import AxiosClient from "../components/Authentication/AxiosClient";
 import RankingTableElement from "../components/RankingTable/RankingTableElement";
 import './Ranking.css';
 
 class Ranking extends Component {
 
     state = {
-        // gameName: "Bohnanza",
         error: null,
         isLoaded: false,
         scores: []
@@ -24,8 +24,8 @@ class Ranking extends Component {
 
     fetchRanking() {
         console.log(this.state);
-        return fetch("http://localhost:8080/api/rankings/" + this.props.location.state.gameId)
-            .then(res => res.json()).then(res => res.scores);
+        return AxiosClient.get("rankings/" + this.props.location.state.gameId)
+            .then(res => res.data.scores);
     }
 
     processScores() {
@@ -66,12 +66,12 @@ class Ranking extends Component {
                 </Row>
 
                 {this.renderScores()}
-                {/*{this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>)}*/}
             </div>
         );
     }
 
     renderScores() {
+        // TODO: make error and loading messages look good
         if (this.state.error) {
             return <span>Error</span>
         } else if (!this.state.isLoaded) {
