@@ -22,8 +22,7 @@ class Login extends Component {
         AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
             .then(() => {
                 AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
-                const page = AuthenticationService.lastPage == null || AuthenticationService.lastPage === '/login' ? '/' : AuthenticationService.lastPage;
-                console.log(page);
+                const page = AuthenticationService.lastPage == null || AuthenticationService.lastPage === "" || AuthenticationService.lastPage === '/login' ? '/' : AuthenticationService.lastPage;
                 window.location.replace(page);
             })
             .catch(() => this.setState({hasLoginFailed: true}))
@@ -42,11 +41,11 @@ class Login extends Component {
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" placeholder="Enter password" onChange={this.onChange}/>
                         </Form.Group>
-                        <div className="login-button">
-                            <Button className="custom-button" type="submit" onClick={this.onLoginClick}><span
-                                className="custom-button-text">LOG IN</span></Button>
-                        </div>
                     </Form>
+                    <div className="login-button">
+                        <Button className="custom-button" type="submit" onClick={this.onLoginClick}><span
+                            className="custom-button-text">LOG IN</span></Button>
+                    </div>
                 </div>
             </div>
         );

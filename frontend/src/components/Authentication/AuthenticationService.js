@@ -8,11 +8,11 @@ class AuthenticationService {
 
     executeBasicAuthenticationService(username, password) {
         return AxiosClient.get("basicauth",
-            {headers: {authorization: this.createBasicAuthToken(username, password)}})
+            {headers: {authorization: this.createBasicAuthToken(username, password)}});
     }
 
     createBasicAuthToken(username, password) {
-        return 'Basic ' + window.btoa(username + ":" + password)
+        return 'Basic ' + window.btoa(username + ":" + password);
     }
 
     registerSuccessfulLogin(username, password) {
