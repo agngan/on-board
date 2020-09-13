@@ -24,8 +24,7 @@ class Ranking extends Component {
 
     fetchRanking() {
         console.log(this.state);
-        return AxiosClient.get("rankings/" + this.props.location.state.gameId,
-            {headers: {authorization:'Basic ' + window.btoa('Agnieszka:admin')}})
+        return AxiosClient.get("rankings/" + this.props.location.state.gameId)
             .then(res => res.data.scores);
     }
 
