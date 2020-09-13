@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Axios from 'axios';
+import AxiosClient from "../components/Authentication/AxiosClient";
 import RankingTableElement from "../components/RankingTable/RankingTableElement";
 import './Ranking.css';
 
@@ -24,7 +24,7 @@ class Ranking extends Component {
 
     fetchRanking() {
         console.log(this.state);
-        return Axios.get("http://localhost:8080/api/rankings/" + this.props.location.state.gameId,
+        return AxiosClient.get("rankings/" + this.props.location.state.gameId,
             {headers: {authorization:'Basic ' + window.btoa('Agnieszka:admin')}})
             .then(res => res.data.scores);
     }

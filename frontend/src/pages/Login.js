@@ -1,13 +1,32 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import AuthenticationService from "../components/Authentication/AuthenticationService";
 import "./Login.css";
 import "../stylesheets/CustomButtons.css"
 
 class Login extends Component {
 
-    onLoginClick = () => {
+    state = {
+        username: '',
+        password: '',
+        hasLoginFailed: false
+    };
 
+    onChange = event => {
+        this.setState({[event.target.id]: event.target.value });
+    };
+
+    onLoginClick = () => {
+        console.log(this.state);
+        AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
+            .then(() => {
+                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
+                const page = AuthenticationService.lastPage == null || AuthenticationService.lastPage === '/login' ? '/' : AuthenticationService.lastPage;
+                console.log(page);
+                window.location.replace(page);
+            })
+            .catch(() => this.setState({hasLoginFailed: true}))
     };
 
     render() {
@@ -15,13 +34,13 @@ class Login extends Component {
             <div>
                 <div className="login-background">
                     <Form>
-                        <Form.Group controlId="formGroupEmail">
+                        <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter username"/>
+                            <Form.Control type="text" placeholder="Enter username" onChange={this.onChange}/>
                         </Form.Group>
-                        <Form.Group controlId="formGroupPassword">
+                        <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Enter password"/>
+                            <Form.Control type="password" placeholder="Enter password" onChange={this.onChange}/>
                         </Form.Group>
                         <div className="login-button">
                             <Button className="custom-button" type="submit" onClick={this.onLoginClick}><span
