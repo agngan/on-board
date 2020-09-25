@@ -3,14 +3,35 @@
 }
 
 .login-background {
-    margin: 12% 35% 20px;
+    margin: 12% 35%;
     border-radius: 20px;
     background-color: #9EA8FF;
     align-items: center;
-    padding: 20px;
+    padding: 35px;
 }
 
 .login-button {
+    margin-top: 30px;
     margin-left: 20%;
     margin-right: 20%;
+}
+
+/* unvisited link */
+a:link {
+    color: #4c50b4;
+}
+
+/* visited link */
+a:visited {
+    color: #4c50b4;
+}
+
+/* mouse over link */
+a:hover {
+    color: #4c50b4;
+}
+
+/* selected link */
+a:active {
+    color: #0a1e5f;
 }

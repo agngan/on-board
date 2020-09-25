@@ -1,0 +1,17 @@
+.Registration {
+    text-align: center;
+}
+
+.registration-background {
+    margin: 7% 35%;
+    border-radius: 20px;
+    background-color: #9EA8FF;
+    align-items: center;
+    padding: 35px;
+}
+
+.register-button {
+    margin-top: 30px;
+    margin-left: 20%;
+    margin-right: 20%;
+}

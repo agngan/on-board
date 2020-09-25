@@ -46,6 +46,7 @@ class Login extends Component {
                         <Button className="custom-button" type="submit" onClick={this.onLoginClick}><span
                             className="custom-button-text">LOG IN</span></Button>
                     </div>
+                    <small>New here? Register <a href={"/register"}>here</a>!</small>
                 </div>
             </div>
         );
