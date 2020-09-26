@@ -36,25 +36,31 @@ class Registration extends Component {
             .catch(() => console.log("registration failed"));
     };
 
+    onKeyDown = event => {
+        if (event.key ==='Enter') {
+            this.onRegisterClick();
+        }
+    };
+
     render() {
         return (
             <div className="registration-background">
                 <Form>
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" placeholder="Enter username" onChange={this.onChange}/>
+                        <Form.Control type="text" placeholder="Enter username" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="email">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={this.onChange}/>
+                        <Form.Control type="email" placeholder="Enter email" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="password">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Enter password" onChange={this.onChange}/>
+                        <Form.Control type="password" placeholder="Enter password" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="repeatedPassword">
                         <Form.Label>Repeat password</Form.Label>
-                        <Form.Control type="password" placeholder="Repeat password" onChange={this.onChange}/>
+                        <Form.Control type="password" placeholder="Repeat password" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                 </Form>
                 <div className="register-button">

@@ -28,6 +28,12 @@ class Login extends Component {
             .catch(() => this.setState({hasLoginFailed: true}))
     };
 
+    onKeyDown = event => {
+      if (event.key ==='Enter') {
+          this.onLoginClick();
+      }
+    };
+
     render() {
         return (
             <div>
@@ -35,11 +41,11 @@ class Login extends Component {
                     <Form>
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>
-                            <Form.Control type="text" placeholder="Enter username" onChange={this.onChange}/>
+                            <Form.Control type="text" placeholder="Enter username" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                         </Form.Group>
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Enter password" onChange={this.onChange}/>
+                            <Form.Control type="password" placeholder="Enter password" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
                         </Form.Group>
                     </Form>
                     <div className="login-button">
