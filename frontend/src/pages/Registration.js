@@ -1,24 +1,39 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Cookies from "universal-cookie";
+import AxiosClient from "../components/Authentication/AxiosClient";
 import "./Registration.css";
 import "../stylesheets/CustomButtons.css";
 
 class Registration extends Component {
 
     state = {
-      username: '',
+        username: '',
         email: '',
         password: '',
-        repeatedPassword:''
+        repeatedPassword: ''
     };
 
+    componentDidMount() {
+        // get method sent to server to ensure that XSRF-TOKEN cookie exists
+        AxiosClient.get("", {withCredentials: true});
+    }
+
     onChange = event => {
-        this.setState({[event.target.id]: event.target.value });
+        this.setState({[event.target.id]: event.target.value});
     };
 
     onRegisterClick = () => {
+        const cookies = new Cookies();
+        const csrfToken = cookies.get('XSRF-TOKEN');
+        console.log(csrfToken);
         console.log(this.state);
+        AxiosClient.post("register", this.state,
+            {withCredentials: true},
+            {headers: {'X-XSRF-TOKEN': csrfToken}})
+            .then(() => console.log("registration successful"))
+            .catch(() => console.log("registration failed"));
     };
 
     render() {
