@@ -34,7 +34,10 @@ class Registration extends Component {
         AxiosClient.post("register", this.state,
             {withCredentials: true},
             {headers: {'X-XSRF-TOKEN': csrfToken}})
-            .then(() => console.log("registration successful"))
+            .then(() => {
+                console.log("Registration successful");
+                window.location.replace("/login");
+            })
             .catch(errors => this.setState({errors: errors.response.data}));
     };
 

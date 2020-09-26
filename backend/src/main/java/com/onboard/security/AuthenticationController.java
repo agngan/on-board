@@ -38,6 +38,7 @@ public class AuthenticationController {
             return new ResponseEntity<>(bindingResult.getAllErrors()
                     .stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);
         }
+        userRepository.save(registrationForm.toUser(passwordEncoder));
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
