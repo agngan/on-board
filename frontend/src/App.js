@@ -6,22 +6,24 @@ import HomePage from "./pages/HomePage";
 import MyGames from "./pages/MyGames";
 import Ranking from "./pages/Ranking";
 import Login from "./pages/Login";
+import Registration from "./pages/Registration";
 import './App.css';
 
 function App() {
-  return (
-    <div className="App">
-      <NavBar/>
-        <Router>
-            <Switch>
-                <Route exact path="/" component={HomePage} />
-                <AuthenticatedRoute exact path="/my-games" component={MyGames} />
-                <Route exact path="/ranking" component={Ranking} />
-                <Route exact path="/login" component={Login} />
-            </Switch>
-        </Router>
-    </div>
-  );
+    return (
+        <div className="App">
+            <NavBar/>
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={HomePage}/>
+                    <AuthenticatedRoute exact path="/my-games" component={MyGames}/>
+                    <Route exact path="/ranking" component={Ranking}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/register" component={Registration}/>
+                </Switch>
+            </Router>
+        </div>
+    );
 }
 
 export default App;
