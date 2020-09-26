@@ -27,17 +27,19 @@ class Registration extends Component {
     onRegisterClick = () => {
         const cookies = new Cookies();
         const csrfToken = cookies.get('XSRF-TOKEN');
+        // TODO: delete console logs when ready
         console.log(csrfToken);
         console.log(this.state);
+
         AxiosClient.post("register", this.state,
             {withCredentials: true},
             {headers: {'X-XSRF-TOKEN': csrfToken}})
             .then(() => console.log("registration successful"))
-            .catch(() => console.log("registration failed"));
+            .catch(errors => this.setState({errors: errors.response.data}));
     };
 
     onKeyDown = event => {
-        if (event.key ==='Enter') {
+        if (event.key === 'Enter') {
             this.onRegisterClick();
         }
     };
@@ -45,22 +47,30 @@ class Registration extends Component {
     render() {
         return (
             <div className="registration-background">
+                {this.state.errors &&
+                <div className="alert alert-warning">
+                    {this.state.errors.map((error, id) => <div className="error-text" key={id}>{error}<br/></div>)}
+                </div>}
                 <Form>
                     <Form.Group controlId="username">
                         <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" placeholder="Enter username" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
+                        <Form.Control type="text" placeholder="Enter username" onChange={this.onChange}
+                                      onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="email">
                         <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
+                        <Form.Control type="email" placeholder="Enter email" onChange={this.onChange}
+                                      onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="password">
                         <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" placeholder="Enter password" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
+                        <Form.Control type="password" placeholder="Enter password" onChange={this.onChange}
+                                      onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                     <Form.Group controlId="repeatedPassword">
                         <Form.Label>Repeat password</Form.Label>
-                        <Form.Control type="password" placeholder="Repeat password" onChange={this.onChange} onKeyDown={this.onKeyDown}/>
+                        <Form.Control type="password" placeholder="Repeat password" onChange={this.onChange}
+                                      onKeyDown={this.onKeyDown}/>
                     </Form.Group>
                 </Form>
                 <div className="register-button">
