@@ -19,10 +19,10 @@ class Ranking extends Component {
         this.setState(newState);
         console.log(this.props.location.state.gameName);
         console.log(this.state);
-        this.fetchRanking().then(this.processScores(), this.handleError());
+        this.getRanking().then(this.processScores(), this.handleError());
     }
 
-    fetchRanking() {
+    getRanking() {
         console.log(this.state);
         return AxiosClient.get("rankings/" + this.props.location.state.gameId)
             .then(res => res.data.scores);
