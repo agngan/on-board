@@ -9,15 +9,15 @@ class GameInfoSmall extends Component {
             <div className="game-info-small-background">
                 <div className="picture-box-small">
                     <img
-                        src={this.props.game.image}
-                        alt={this.props.game.name}
+                        src={this.props.game.imagePath}
+                        alt={this.props.game.gameName}
                         style={{height: '100%', width: '100%', objectFit: 'contain'}}/>
                 </div>
 
-                <div className="game-title-small">{this.props.game.name}</div>
+                <div className="game-title-small">{this.props.game.gameName}</div>
 
                 <div className="game-info-small">
-                    <span>My score: {this.props.game.userScore}</span><br/>
+                    <span>My score: {this.props.game.myScore}</span><br/>
                     <span>Best score overall: {this.props.game.bestScore}</span><br/>
                     <span>Top player: {this.props.game.topPlayer}</span><br/>
                     <span>Last win: {this.props.game.lastWin}</span><br/>

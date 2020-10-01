@@ -5,7 +5,6 @@ import AxiosClient from "../components/Authentication/AxiosClient";
 import AuthenticationService from "../components/Authentication/AuthenticationService";
 import GameInfoSmall from "../components/GameInfoSmall/GameInfoSmall";
 import "./MyGames.css";
-import RankingTableElement from "../components/RankingTable/RankingTableElement";
 
 class MyGames extends Component {
 
@@ -21,7 +20,7 @@ class MyGames extends Component {
 
     getMyGames() {
         return AxiosClient.get("myGames/" + AuthenticationService.getLoggedInUser())
-            .then(res => res.data.myGamesRecords);
+            .then(res => res.data);
     }
 
     processGames() {
@@ -30,6 +29,7 @@ class MyGames extends Component {
             newState.isLoaded = true;
             newState.myGames = games;
             this.setState(newState);
+            console.log(this.state.myGames)
         }
     }
 
@@ -60,7 +60,7 @@ class MyGames extends Component {
         } else if (!this.state.isLoaded) {
             return <span>Loading...</span>
         } else {
-            return this.state.myGames.map(game => <Col key={game.id}><GameInfoSmall key={game.id} game={game}/></Col>);
+            return this.state.myGames.map(game => <Col key={game.gameId}><GameInfoSmall key={game.id} game={game}/></Col>);
         }
     }
 }

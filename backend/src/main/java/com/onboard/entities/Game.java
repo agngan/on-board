@@ -20,4 +20,13 @@ public class Game {
 
     @OneToMany(mappedBy = "game")
     private List<Win> wins;
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "id=" + id +
+                ", apiId='" + apiId + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

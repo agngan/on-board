@@ -14,7 +14,7 @@ INSERT INTO USER_GAME (user_id, game_id) VALUES (3,3);
 
 INSERT INTO Win (user_id, game_id, date) VALUES (1, 1, DATE('2020-07-13'));
 INSERT INTO Win (user_id, game_id, date) VALUES (1, 1, DATE('2020-08-26'));
-INSERT INTO Win (user_id, game_id, date) VALUES (1, 1, DATE('2020-00-29'));
+INSERT INTO Win (user_id, game_id, date) VALUES (1, 1, DATE('2020-09-29'));
 INSERT INTO Win (user_id, game_id, date) VALUES (1, 2, DATE('2020-07-17'));
 INSERT INTO Win (user_id, game_id, date) VALUES (1, 3, DATE('2020-09-28'));
 INSERT INTO Win (user_id, game_id, date) VALUES (2, 1, DATE('2020-07-18'));
