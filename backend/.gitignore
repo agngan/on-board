@@ -29,3 +29,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### private file ###
+src/main/resources/apiKey.yml

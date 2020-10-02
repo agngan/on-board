@@ -1,52 +1,67 @@
 import React, {Component} from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import AxiosClient from "../components/Authentication/AxiosClient";
+import AuthenticationService from "../components/Authentication/AuthenticationService";
 import GameInfoSmall from "../components/GameInfoSmall/GameInfoSmall";
 import "./MyGames.css";
 
 class MyGames extends Component {
 
     state = {
-        myGames: [
-            {
-                id: 1,
-                name: "Bohnanza",
-                image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254186139-51cXhVYYHwL.jpg",
-                userScore: "100",
-                bestScore: "120",
-                topPlayer: "Agnieszka",
-                lastWin: "14-08-20"
-            },
-            {
-                id: 2,
-                name: "Saboteur",
-                image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559253385911-51SYQdt0ZPL.jpg",
-                userScore: "150",
-                bestScore: "170",
-                topPlayer: "Agnieszka",
-                lastWin: "23-08-20"
-            },
-            {
-                id: 3,
-                name: "Agricola (Revised Edition)",
-                image: "https://s3-us-west-1.amazonaws.com/5cc.images/games/uploaded/1559254915322-61vm3wX33lL.jpg",
-                userScore: "37",
-                bestScore: "57",
-                topPlayer: "Agnieszka",
-                lastWin: "24-08-20"
-            }
-        ]
+        error: null,
+        isLoaded: false,
+        myGames: []
     };
+
+    componentDidMount() {
+        this.getMyGames().then(this.processGames(), this.handleError());
+    }
+
+    getMyGames() {
+        return AxiosClient.get("myGames/" + AuthenticationService.getLoggedInUser())
+            .then(res => res.data);
+    }
+
+    processGames() {
+        return games => {
+            const newState = this.state;
+            newState.isLoaded = true;
+            newState.myGames = games;
+            this.setState(newState);
+            console.log(this.state.myGames)
+        }
+    }
+
+    handleError() {
+        return error => {
+            const newState = this.state;
+            newState.isLoaded = true;
+            newState.error = error;
+            console.log(error);
+        }
+    }
 
     render() {
         return (
             <div>
                 <div className="title">My games:</div>
                 <Row sm={1} md={2} className="my-games-row">
-                    {this.state.myGames.map(game => <Col key={game.id}><GameInfoSmall key={game.id} game={game}/></Col>)}
+                    {this.renderGames()}
                 </Row>
             </div>
         );
+    }
+
+    renderGames() {
+        // TODO: make error and loading messages look good
+        if (this.state.error) {
+            return <span>Error</span>
+        } else if (!this.state.isLoaded) {
+            return <span>Loading...</span>
+        } else {
+            return this.state.myGames.map(game => <Col key={game.gameId}><GameInfoSmall key={game.id} game={game}/></Col>);
+        }
     }
 }
 
