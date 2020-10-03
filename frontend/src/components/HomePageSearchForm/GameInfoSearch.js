@@ -2,24 +2,25 @@ import React, {Component} from 'react';
 import CustomSlider from "../CustomSlider";
 import CategoriesDropdown from "../CategoriesDropdown/CategoriesDropdown";
 import Button from "react-bootstrap/Button";
+import AxiosClient from "../Authentication/AxiosClient";
 
 
-const initialMinNumberOfPlayers = [4];
+const initialNumberOfPlayers = [2, 4];
 const initialPlaytimeRange = [30, 90];
 const initialMinAge = [13];
 
 class GameInfoSearch extends Component {
 
     state = {
-        minNumberOfPlayers: [initialMinNumberOfPlayers],
+        numberOfPlayers: initialNumberOfPlayers,
         playtimeRange: initialPlaytimeRange,
         minAge: initialMinAge,
         category: ""
     };
 
-    onMinNumberOfPlayersChange = playersNumber => {
+    onNumberOfPlayersChange = playersNumber => {
         const newState = this.state;
-        newState.minNumberOfPlayers = playersNumber;
+        newState.numberOfPlayers = playersNumber;
         this.setState(newState);
         console.log(this.state);
     };
@@ -60,10 +61,10 @@ class GameInfoSearch extends Component {
                 <div className="box-left">
                     <span className="form-title">Min. number of players:</span>
                     <CustomSlider
-                        domain={[1, 50]}
-                        defaultValues={initialMinNumberOfPlayers}
-                        onChange={this.onMinNumberOfPlayersChange}
-                        left={true}
+                        domain={[1, 20]}
+                        defaultValues={initialNumberOfPlayers}
+                        onChange={this.onNumberOfPlayersChange}
+                        left={false}
                         right={false}/>
                 </div>
 
