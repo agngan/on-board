@@ -6,18 +6,33 @@ import "./CategoriesDropdown.css"
 class CategoriesDropdown extends Component {
 
     state = {
-        category: "Category",
+        category: {
+            name: "Category",
+            id: ""
+        },
         categories: [
-            "Abstract",
-            "Adventure",
-            "Card game",
-            "Luck",
-            "Math"
+            {
+                name: "Abstract",
+                id: "hBqZ3Ar4RJ"
+            },
+            {
+                name: "Adventure",
+                id: "KUBCKBkGxV"
+            },
+            {
+                name: "Card game",
+                id: "eX8uuNlQkQ"
+            },
+            {
+                name: "Math",
+                id: "POlqwScVxD"
+            }
         ]
     };
 
     onCategorySelect = eventKey => {
         const newState = this.state;
+        console.log(eventKey);
         newState.category = eventKey;
         this.setState(newState);
         this.props.onCategoryChange(eventKey);
@@ -26,12 +41,13 @@ class CategoriesDropdown extends Component {
 
     render() {
         return (
-                <div className="categories-dropdown">
-                    <DropdownButton size="sm" variant="primary" title={this.state.category} onSelect={this.onCategorySelect}>
-                        {this.state.categories.map(category => <Dropdown.Item key={category}
-                                                                              eventKey={category}>{category}</Dropdown.Item>)}
-                    </DropdownButton>
-                </div>
+            <div className="categories-dropdown">
+                <DropdownButton size="sm" variant="primary" title={this.state.category.name}>
+                    {this.state.categories.map(category => <Dropdown.Item key={category.id}
+                                                                          eventKey={category}
+                                                                          onSelect={() => this.onCategorySelect(category)}>{category.name}</Dropdown.Item>)}
+                </DropdownButton>
+            </div>
         );
     }
 }

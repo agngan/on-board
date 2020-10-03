@@ -15,7 +15,10 @@ class GameInfoSearch extends Component {
         numberOfPlayers: initialNumberOfPlayers,
         playtimeRange: initialPlaytimeRange,
         minAge: initialMinAge,
-        category: ""
+        category: {
+            name: "",
+            id: ""
+        }
     };
 
     onNumberOfPlayersChange = playersNumber => {
@@ -59,7 +62,7 @@ class GameInfoSearch extends Component {
                 <div className="title">Find a game perfect for you!</div>
 
                 <div className="box-left">
-                    <span className="form-title">Min. number of players:</span>
+                    <span className="form-title">Number of players:</span>
                     <CustomSlider
                         domain={[1, 20]}
                         defaultValues={initialNumberOfPlayers}
