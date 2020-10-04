@@ -1,4 +1,4 @@
-package com.onboard.projections;
+package com.onboard.pojos;
 
 import lombok.Data;
 

@@ -2,7 +2,7 @@ package com.onboard.controllers;
 
 import com.onboard.entities.Game;
 import com.onboard.entities.Win;
-import com.onboard.projections.MyGamesRecord;
+import com.onboard.pojos.MyGamesRecord;
 import com.onboard.repositories.UserRepository;
 import com.onboard.services.BoardGameAtlasAPICommunicationService;
 import lombok.AllArgsConstructor;
