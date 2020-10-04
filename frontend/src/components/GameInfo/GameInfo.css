@@ -50,3 +50,24 @@
     font-size: 16px;
 }
 
+.description-box {
+    height: 200px;
+}
+
+.scrollbar {
+    overflow-y: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #9EA8FF;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #7378bf;
+}
+

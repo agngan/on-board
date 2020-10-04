@@ -51,10 +51,30 @@ class GameInfoSearch extends Component {
     };
 
     onSearchClick = () => {
-        console.log(this.state);
-        // TODO: Send request to backend
-        this.props.setGames([]);
+        this.getGames().then(this.processGames(), this.handleError());
     };
+
+    getGames() {
+        const params = new URLSearchParams([
+            ['numberOfPlayers', this.state.numberOfPlayers],
+            ["playtimeRange", this.state.playtimeRange],
+            ["minAge", this.state.minAge[0]],
+            ["category", this.state.category.id]]);
+        return AxiosClient.get("bga/searchByDetails", { params })
+            .then(res => res.data);
+    }
+
+    processGames() {
+        return games => {
+            this.props.processGames(games);
+        };
+    }
+
+    handleError() {
+        return error => {
+            this.props.handleError(error);
+        }
+    }
 
     render() {
         return (

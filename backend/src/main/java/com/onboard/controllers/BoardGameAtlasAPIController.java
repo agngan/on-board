@@ -21,6 +21,7 @@ import static java.lang.Integer.valueOf;
 @RequestMapping("${spring.data.rest.base-path}/bga")
 public class BoardGameAtlasAPIController {
 
+    private final static int limit = 100;
     private final BoardGameAtlasAPICommunicationService bgaService;
 
     @Autowired
@@ -29,9 +30,9 @@ public class BoardGameAtlasAPIController {
     }
 
     @GetMapping("/searchByDetails")
-    public ResponseEntity<List<GameSummary>> searchByDetails(@RequestParam List<String> numberOfPlayers,
-                                                             @RequestParam List<String> playtimeRange,
-                                                             @RequestParam String minAge,
+    public ResponseEntity<List<GameSummary>> searchByDetails(@RequestParam List<Integer> numberOfPlayers,
+                                                             @RequestParam List<Integer> playtimeRange,
+                                                             @RequestParam Integer minAge,
                                                              @RequestParam String category) {
         System.out.println("Number of players: " + numberOfPlayers);
         System.out.println("Playtime range: " + playtimeRange);
@@ -39,12 +40,13 @@ public class BoardGameAtlasAPIController {
         System.out.println("Category: " + category);
 
         Map<String, String> parameters = new HashMap<>();
-        parameters.put("lt_min_players", numberOfPlayers.get(0));
-        parameters.put("gt_max_players", numberOfPlayers.get(1));
-        parameters.put("lt_min_playtime", playtimeRange.get(0));
-        parameters.put("gt_max_playtime", playtimeRange.get(1));
-        parameters.put("gt_min_age", minAge);
-        if (!category.equals("")) // or empty?
+        parameters.put("limit", String.valueOf(limit));
+        parameters.put("lt_min_players", Integer.toString(numberOfPlayers.get(0) + 1));
+        parameters.put("gt_max_players", Integer.toString(numberOfPlayers.get(1) - 1));
+        parameters.put("gt_min_playtime", Integer.toString(playtimeRange.get(0) - 1));
+        parameters.put("lt_max_playtime", Integer.toString(playtimeRange.get(1) + 1));
+        parameters.put("lt_min_age", Integer.toString(minAge + 1));
+        if (!category.equals(""))
             parameters.put("categories", category);
 
         List<Map<String, Object>> gamesMaps = bgaService.getGames(parameters);
@@ -72,6 +74,7 @@ public class BoardGameAtlasAPIController {
                     description));
         }
 
+        System.out.println(gameSummaries.size());
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);
     }
 }

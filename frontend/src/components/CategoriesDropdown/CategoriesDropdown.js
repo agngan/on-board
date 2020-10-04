@@ -32,11 +32,9 @@ class CategoriesDropdown extends Component {
 
     onCategorySelect = eventKey => {
         const newState = this.state;
-        console.log(eventKey);
         newState.category = eventKey;
         this.setState(newState);
         this.props.onCategoryChange(eventKey);
-        console.log(this.state);
     };
 
     render() {

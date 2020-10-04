@@ -50,6 +50,7 @@ class Ranking extends Component {
             const newState = this.state;
             newState.isLoaded = true;
             newState.error = error;
+            this.setState(newState);
             console.log(error);
         }
     }
