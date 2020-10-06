@@ -34,11 +34,12 @@ public class BoardGameAtlasAPIController {
                                                              @RequestParam List<Integer> playtimeRange,
                                                              @RequestParam Integer minAge,
                                                              @RequestParam String category) {
-        System.out.println("Number of players: " + numberOfPlayers);
-        System.out.println("Playtime range: " + playtimeRange);
-        System.out.println("Min age: " + minAge);
-        System.out.println("Category: " + category);
+        Map<String, String> parameters = getDetailsParametersMap(numberOfPlayers, playtimeRange, minAge, category);
+        List<GameSummary> gameSummaries = getGameSummaries(parameters);
+        return new ResponseEntity<>(gameSummaries, HttpStatus.OK);
+    }
 
+    private Map<String, String> getDetailsParametersMap(@RequestParam List<Integer> numberOfPlayers, @RequestParam List<Integer> playtimeRange, @RequestParam Integer minAge, @RequestParam String category) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("limit", String.valueOf(limit));
         parameters.put("lt_min_players", Integer.toString(numberOfPlayers.get(0) + 1));
@@ -48,33 +49,49 @@ public class BoardGameAtlasAPIController {
         parameters.put("lt_min_age", Integer.toString(minAge + 1));
         if (!category.equals(""))
             parameters.put("categories", category);
+        return parameters;
+    }
 
-        List<Map<String, Object>> gamesMaps = bgaService.getGames(parameters);
+    private List<GameSummary> getGameSummaries(Map<String, String> parameters) {
         List<GameSummary> gameSummaries = new ArrayList<>();
+        List<Map<String, Object>> gamesMaps = bgaService.getGames(parameters);
 
         for (Map<String, Object> gameMap : gamesMaps) {
-            String name = gameMap.get("name") != null ? gameMap.get("name").toString() : "";
-            String imagePath = gameMap.get("image_url") != null ? gameMap.get("image_url").toString() : "";
-            Integer minPlayers = gameMap.get("min_players") != null ? valueOf(gameMap.get("min_players").toString()) : null;
-            Integer maxPlayers = gameMap.get("max_players") != null ? valueOf(gameMap.get("max_players").toString()) : null;
-            Integer minPlaytime = gameMap.get("min_playtime") != null ? valueOf(gameMap.get("min_playtime").toString()) : null;
-            Integer maxPlaytime = gameMap.get("max_playtime") != null ? valueOf(gameMap.get("max_playtime").toString()) : null;
-            Integer minimalAge = gameMap.get("min_age") != null ? valueOf(gameMap.get("min_age").toString()) : null;
-            Integer yearPublished = gameMap.get("year_published") != null ? valueOf(gameMap.get("year_published").toString()) : null;
-            String primaryPublisher = gameMap.get("primary_publisher") != null ? gameMap.get("primary_publisher").toString() : "";
-            String description = gameMap.get("description") != null ? gameMap.get("description").toString() : "";
-
-            gameSummaries.add(new GameSummary(name,
-                    imagePath,
-                    new Integer[]{minPlayers, maxPlayers},
-                    new Integer[]{minPlaytime, maxPlaytime},
-                    minimalAge,
-                    yearPublished,
-                    primaryPublisher,
-                    description));
+            addGameSummary(gameSummaries, gameMap);
         }
+        return gameSummaries;
+    }
 
-        System.out.println(gameSummaries.size());
+    private void addGameSummary(List<GameSummary> gameSummaries, Map<String, Object> gameMap) {
+        String name = gameMap.get("name") != null ? gameMap.get("name").toString() : "";
+        String imagePath = gameMap.get("image_url") != null ? gameMap.get("image_url").toString() : "";
+        Integer minPlayers = gameMap.get("min_players") != null ? valueOf(gameMap.get("min_players").toString()) : null;
+        Integer maxPlayers = gameMap.get("max_players") != null ? valueOf(gameMap.get("max_players").toString()) : null;
+        Integer minPlaytime = gameMap.get("min_playtime") != null ? valueOf(gameMap.get("min_playtime").toString()) : null;
+        Integer maxPlaytime = gameMap.get("max_playtime") != null ? valueOf(gameMap.get("max_playtime").toString()) : null;
+        Integer minimalAge = gameMap.get("min_age") != null ? valueOf(gameMap.get("min_age").toString()) : null;
+        Integer yearPublished = gameMap.get("year_published") != null ? valueOf(gameMap.get("year_published").toString()) : null;
+        String primaryPublisher = gameMap.get("primary_publisher") != null ? gameMap.get("primary_publisher").toString() : "";
+        String description = gameMap.get("description") != null ? gameMap.get("description").toString() : "";
+
+        gameSummaries.add(new GameSummary(
+                name,
+                imagePath,
+                new Integer[]{minPlayers, maxPlayers},
+                new Integer[]{minPlaytime, maxPlaytime},
+                minimalAge,
+                yearPublished,
+                primaryPublisher,
+                description));
+    }
+
+    @GetMapping("/searchByName")
+    public ResponseEntity<List<GameSummary>> searchByName(@RequestParam String name){
+        Map<String, String> parameters = new HashMap<>();
+        parameters.put("name", name);
+        parameters.put("fuzzy_match", "true");
+
+        List<GameSummary> gameSummaries = getGameSummaries(parameters);
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);
     }
 }
