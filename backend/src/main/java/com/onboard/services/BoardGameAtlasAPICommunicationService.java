@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,15 +22,10 @@ public class BoardGameAtlasAPICommunicationService {
 
         if (!putApiKeyIfPossible(parameters))
             return null;
-        UriComponentsBuilder uriBuilder = createUriComponentsBuilder(parameters);
+        UriComponentsBuilder uriBuilder = createUriComponentsBuilder("https://api.boardgameatlas.com/api/search", parameters);
 
-        String resultJson = new RestTemplate().getForObject(uriBuilder.toUriString(), String.class, parameters);
-        if (resultJson == null)
-            return null;
-
-        Map<String, List<Map<String, Object>>> resultMap = parseToMap(resultJson);
-        if (resultMap == null)
-            return null;
+        Map<String, List<Map<String, Object>>> resultMap = getFromAPI(parameters, uriBuilder);
+        if (resultMap == null) return null;
 
         return resultMap.get("games");
     }
@@ -53,12 +49,20 @@ public class BoardGameAtlasAPICommunicationService {
         return new ObjectMapper().readValue(inputStream, String.class);
     }
 
-    private UriComponentsBuilder createUriComponentsBuilder(Map<String, String> parameters) {
-        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl("https://api.boardgameatlas.com/api/search");
+    private UriComponentsBuilder createUriComponentsBuilder(String baseUrl, Map<String, String> parameters) {
+        UriComponentsBuilder uriBuilder = UriComponentsBuilder.fromHttpUrl(baseUrl);
         for (Map.Entry<String, String> entry : parameters.entrySet()) {
             uriBuilder.queryParam(entry.getKey(), entry.getValue());
         }
         return uriBuilder;
+    }
+
+    private Map<String, List<Map<String, Object>>> getFromAPI(Map<String, String> parameters, UriComponentsBuilder uriBuilder) {
+        String resultJson = new RestTemplate().getForObject(uriBuilder.toUriString(), String.class, parameters);
+        if (resultJson == null)
+            return null;
+
+        return parseToMap(resultJson);
     }
 
     private Map<String, List<Map<String, Object>>> parseToMap(String resultJson) {
@@ -72,4 +76,18 @@ public class BoardGameAtlasAPICommunicationService {
         }
         return resultMap;
     }
+
+    public List<Map<String, Object>> getCategories() {
+
+        Map<String, String> parameters = new HashMap<>();
+        if (!putApiKeyIfPossible(parameters))
+            return null;
+        UriComponentsBuilder uriBuilder = createUriComponentsBuilder("https://api.boardgameatlas.com/api/game/categories", parameters);
+
+        Map<String, List<Map<String, Object>>> resultMap = getFromAPI(parameters, uriBuilder);
+        if (resultMap == null) return null;
+
+        return resultMap.get("categories");
+    }
+
 }

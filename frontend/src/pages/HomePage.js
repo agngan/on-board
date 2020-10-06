@@ -27,7 +27,6 @@ class HomePage extends Component {
         newState.isLoaded = true;
         newState.games = games;
         this.setState(newState);
-        console.log(games);
     };
 
     handleError = error => {

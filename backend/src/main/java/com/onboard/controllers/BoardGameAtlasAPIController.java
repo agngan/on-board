@@ -1,5 +1,6 @@
 package com.onboard.controllers;
 
+import com.onboard.pojos.GameCategory;
 import com.onboard.pojos.GameSummary;
 import com.onboard.services.BoardGameAtlasAPICommunicationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,12 +87,24 @@ public class BoardGameAtlasAPIController {
     }
 
     @GetMapping("/searchByName")
-    public ResponseEntity<List<GameSummary>> searchByName(@RequestParam String name){
+    public ResponseEntity<List<GameSummary>> searchByName(@RequestParam String name) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("name", name);
         parameters.put("fuzzy_match", "true");
 
         List<GameSummary> gameSummaries = getGameSummaries(parameters);
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);
+    }
+
+    @GetMapping("/categories")
+    public ResponseEntity<List<GameCategory>> getCategories() {
+        List<GameCategory> categories = new ArrayList<>();
+        List<Map<String, Object>> categoriesMap = bgaService.getCategories();
+
+        for (Map<String, Object> categoryMap : categoriesMap) {
+            categories.add(new GameCategory(categoryMap.get("id").toString(), categoryMap.get("name").toString()));
+        }
+
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 }
