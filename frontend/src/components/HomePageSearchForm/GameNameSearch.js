@@ -24,8 +24,8 @@ class GameNameSearch extends Component {
 
     onFindClick = () => {
         console.log(this.state);
+        this.props.setSearchStarted();
         // TODO: Handle sending empty name
-        // TODO: Send request to backend
         this.getGames().then(this.processGames(), this.handleError());
     };
 

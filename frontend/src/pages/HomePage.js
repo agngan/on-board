@@ -11,7 +11,14 @@ class HomePage extends Component {
     state = {
         error: null,
         isLoaded: false,
+        searchStarted: false,
         games: []
+    };
+
+    setSearchStarted = () => {
+        const newState = this.state;
+        newState.searchStarted = true;
+        this.setState(newState);
     };
 
     processGames = games => {
@@ -33,8 +40,11 @@ class HomePage extends Component {
     render() {
         return (
             <div>
-                <GameInfoSearch processGames={this.processGames} handleError={this.handleError}/>
-                <GameNameSearch processGames={this.processGames} handleError={this.handleError}/>
+                <GameInfoSearch processGames={this.processGames} handleError={this.handleError} setSearchStarted={this.setSearchStarted}/>
+                <GameNameSearch processGames={this.processGames} handleError={this.handleError} setSearchStarted={this.setSearchStarted}/>
+
+                {!this.state.searchStarted &&
+                <div className="title">Thousands of games are waiting to be found!</div>}
 
                 {this.renderGames()}
             </div>
@@ -45,7 +55,7 @@ class HomePage extends Component {
         // TODO: make error and loading messages look good
         if (this.state.error) {
             return <span>Error</span>
-        } else if (!this.state.isLoaded) {
+        } else if (this.state.searchStarted && !this.state.isLoaded) {
             return <span>Loading...</span>
         } else {
             return this.state.games.map(game => <GameInfo key={game.name} game={game}/>);

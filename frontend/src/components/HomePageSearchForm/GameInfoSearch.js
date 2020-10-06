@@ -51,6 +51,7 @@ class GameInfoSearch extends Component {
     };
 
     onSearchClick = () => {
+        this.props.setSearchStarted();
         this.getGames().then(this.processGames(), this.handleError());
     };
 
