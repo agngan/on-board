@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
+import AxiosClient from "../Authentication/AxiosClient";
 
 class GameNameSearch extends Component {
 
@@ -13,7 +14,6 @@ class GameNameSearch extends Component {
         const newState = this.state;
         newState.gameName = event.target.value;
         this.setState(newState);
-        console.log(this.state)
     };
 
     onKeyDown = event => {
@@ -22,10 +22,28 @@ class GameNameSearch extends Component {
     };
 
     onFindClick = () => {
-        console.log(this.state);
-        // TODO: Send request to backend
-        this.props.setGames([]);
+        this.props.setSearchStarted();
+        // TODO: Handle sending empty name
+        this.getGames().then(this.processGames(), this.handleError());
     };
+
+    getGames() {
+        const params = new URLSearchParams([['name', this.state.gameName]]);
+        return AxiosClient.get("bga/searchByName", { params })
+            .then(res => res.data);
+    }
+
+    processGames() {
+        return games => {
+            this.props.processGames(games);
+        };
+    }
+
+    handleError() {
+        return error => {
+            this.props.handleError(error);
+        }
+    }
 
     render() {
         return (
@@ -38,11 +56,12 @@ class GameNameSearch extends Component {
                                           onChange={this.onGameNameChange} onKeyDown={this.onKeyDown}/>
                         </Col>
                         <Col>
-                            <Button className="custom-button" type="submit" onClick={this.onFindClick}><span
+                            <Button className="custom-button" onClick={this.onFindClick}><span
                                 className="custom-button-text">FIND</span></Button>
                         </Col>
                     </Form.Row>
                 </Form>
+
             </div>
         );
     }

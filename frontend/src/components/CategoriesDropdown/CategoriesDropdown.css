@@ -21,6 +21,28 @@
     border-color: #8888f8;
 }
 
+.categories-menu {
+    height: 300px;
+}
+
 .dropdown-menu {
     width: 100%;
 }
+
+.scrollbar {
+    overflow-y: scroll;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 5px;
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    background: #9EA8FF;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 1rem;
+    background-color: #7378bf;
+}
+
