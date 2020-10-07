@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class GameSummary {
 
+    private final String id;
     private final String name;
     private final String imagePath;
     private final Integer[] numberOfPlayers;
@@ -13,4 +14,5 @@ public class GameSummary {
     private final Integer yearPublished;
     private final String primaryPublisher;
     private final String description;
+    private final boolean hasRanking;
 }

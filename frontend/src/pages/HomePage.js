@@ -22,7 +22,6 @@ class HomePage extends Component {
     };
 
     processGames = games => {
-        games.forEach((game, i) => game.id = i);
         const newState = this.state;
         newState.isLoaded = true;
         newState.games = games;

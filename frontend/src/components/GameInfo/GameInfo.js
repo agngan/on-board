@@ -36,7 +36,7 @@ class GameInfo extends Component {
                             className="custom-button-text">Add to my games</span></Button>
                         <Link to={{
                             pathname: "/ranking",
-                            state: {gameId: this.props.game.id, gameName: this.props.game.name}
+                            state: {gameId: this.props.game.id, gameName: this.props.game.name, gameHasRanking: this.props.game.hasRanking}
                         }}>
                             <Button className="custom-button mt-2"><span
                                 className="custom-button-text">See ranking</span></Button>

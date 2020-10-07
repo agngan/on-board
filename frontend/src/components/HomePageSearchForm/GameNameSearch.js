@@ -14,7 +14,6 @@ class GameNameSearch extends Component {
         const newState = this.state;
         newState.gameName = event.target.value;
         this.setState(newState);
-        console.log(this.state)
     };
 
     onKeyDown = event => {
@@ -23,7 +22,6 @@ class GameNameSearch extends Component {
     };
 
     onFindClick = () => {
-        console.log(this.state);
         this.props.setSearchStarted();
         // TODO: Handle sending empty name
         this.getGames().then(this.processGames(), this.handleError());
@@ -37,7 +35,6 @@ class GameNameSearch extends Component {
 
     processGames() {
         return games => {
-            console.log(games);
             this.props.processGames(games);
         };
     }

@@ -1,7 +1,10 @@
 package com.onboard.controllers;
 
+import com.onboard.entities.Game;
 import com.onboard.pojos.GameCategory;
 import com.onboard.pojos.GameSummary;
+import com.onboard.repositories.GameRepository;
+import com.onboard.repositories.WinRepository;
 import com.onboard.services.BoardGameAtlasAPICommunicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static java.lang.Integer.valueOf;
 
@@ -24,10 +24,14 @@ public class BoardGameAtlasAPIController {
 
     private final static int limit = 100;
     private final BoardGameAtlasAPICommunicationService bgaService;
+    private final GameRepository gameRepository;
+    private final WinRepository winRepository;
 
     @Autowired
-    public BoardGameAtlasAPIController(BoardGameAtlasAPICommunicationService bgaService) {
+    public BoardGameAtlasAPIController(BoardGameAtlasAPICommunicationService bgaService, GameRepository gameRepository, WinRepository winRepository) {
         this.bgaService = bgaService;
+        this.gameRepository = gameRepository;
+        this.winRepository = winRepository;
     }
 
     @GetMapping("/searchByDetails")
@@ -64,6 +68,8 @@ public class BoardGameAtlasAPIController {
     }
 
     private void addGameSummary(List<GameSummary> gameSummaries, Map<String, Object> gameMap) {
+        Optional<Game> gameOptional = gameRepository.findByApiId(gameMap.get("id").toString());
+        String id = gameOptional.map(game -> game.getId().toString()).orElseGet(() -> gameMap.get("id").toString());
         String name = gameMap.get("name") != null ? gameMap.get("name").toString() : "";
         String imagePath = gameMap.get("image_url") != null ? gameMap.get("image_url").toString() : "";
         Integer minPlayers = gameMap.get("min_players") != null ? valueOf(gameMap.get("min_players").toString()) : null;
@@ -74,8 +80,10 @@ public class BoardGameAtlasAPIController {
         Integer yearPublished = gameMap.get("year_published") != null ? valueOf(gameMap.get("year_published").toString()) : null;
         String primaryPublisher = gameMap.get("primary_publisher") != null ? gameMap.get("primary_publisher").toString() : "";
         String description = gameMap.get("description") != null ? gameMap.get("description").toString() : "";
+        boolean hasRanking = gameOptional.isPresent() && winRepository.existsByGame_Id(Long.valueOf(id));
 
         gameSummaries.add(new GameSummary(
+                id,
                 name,
                 imagePath,
                 new Integer[]{minPlayers, maxPlayers},
@@ -83,7 +91,8 @@ public class BoardGameAtlasAPIController {
                 minimalAge,
                 yearPublished,
                 primaryPublisher,
-                description));
+                description,
+                hasRanking));
     }
 
     @GetMapping("/searchByName")
