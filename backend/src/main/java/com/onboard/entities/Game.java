@@ -1,25 +1,31 @@
 package com.onboard.entities;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Data
+@RequiredArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String apiId;
-    private String name;
+    private final String apiId;
+    private final String name;
 
     @ManyToMany(mappedBy = "games")
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
     @OneToMany(mappedBy = "game")
-    private List<Win> wins;
+    private List<Win> wins = new ArrayList<>();
 
     @Override
     public String toString() {

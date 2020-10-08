@@ -49,7 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().cors()
-                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+//                .and().csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+                .and().csrf().disable();
     }
 
     @Bean

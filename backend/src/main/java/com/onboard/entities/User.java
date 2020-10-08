@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -29,10 +30,10 @@ public class User implements UserDetails {
             name = "user_game",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private List<Game> games;
+    private List<Game> games = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
-    private List<Win> wins;
+    private List<Win> wins = new ArrayList<>();
 
 
     @Override
