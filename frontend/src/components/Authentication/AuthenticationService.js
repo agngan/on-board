@@ -1,4 +1,5 @@
 import AxiosClient from './AxiosClient';
+import Cookies from "universal-cookie";
 
 export const SESSION_USERNAME = 'username';
 export const SESSION_TOKEN = 'token';
@@ -35,6 +36,15 @@ class AuthenticationService {
         if (user === null)
             return '';
         return user
+    }
+
+    getPostHeaders() {
+        const cookies = new Cookies();
+        const csrfToken = cookies.get("XSRF-TOKEN");
+        return {
+            "Authorization": SESSION_TOKEN,
+            "X-XSRF-TOKEN": csrfToken
+        }
     }
 }
 

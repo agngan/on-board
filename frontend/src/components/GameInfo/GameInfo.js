@@ -15,7 +15,11 @@ class GameInfo extends Component {
                 id: this.props.game.id,
                 name: this.props.game.name
             };
-            AxiosClient.post("/myGames/add/" + AuthenticationService.getLoggedInUser(), postData).then(() => {
+            AxiosClient.post("/myGames/add/" + AuthenticationService.getLoggedInUser(),
+                postData,
+                {withCredentials: true},
+                {headers: AuthenticationService.getPostHeaders()})
+                .then(() => {
                 console.log("post successful");
                 window.location.replace("/my-games");
             });
