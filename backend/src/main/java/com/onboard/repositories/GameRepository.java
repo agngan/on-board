@@ -7,5 +7,9 @@ import java.util.Optional;
 
 public interface GameRepository extends CrudRepository<Game, Long> {
 
+    boolean existsById(Long id);
+
+    Game getById(Long id);
+
     Optional<Game> findByApiId(String apiId);
 }

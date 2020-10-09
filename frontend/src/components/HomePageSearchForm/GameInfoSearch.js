@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
+import Button from "react-bootstrap/Button";
 import CustomSlider from "../CustomSlider";
 import CategoriesDropdown from "../CategoriesDropdown/CategoriesDropdown";
-import Button from "react-bootstrap/Button";
 import AxiosClient from "../Authentication/AxiosClient";
+import AuthenticationService from "../Authentication/AuthenticationService";
 
 
 const initialNumberOfPlayers = [2, 4];
@@ -61,6 +62,10 @@ class GameInfoSearch extends Component {
             ["playtimeRange", this.state.playtimeRange],
             ["minAge", this.state.minAge[0]],
             ["category", this.state.category.id]]);
+        if (AuthenticationService.isUserLoggedIn()){
+            return AxiosClient.get("bga/searchByDetails/" + AuthenticationService.getLoggedInUser(), { params })
+                .then(res => res.data);
+        }
         return AxiosClient.get("bga/searchByDetails", { params })
             .then(res => res.data);
     }

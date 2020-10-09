@@ -1,8 +1,11 @@
 package com.onboard.controllers;
 
 import com.onboard.entities.Game;
+import com.onboard.entities.User;
 import com.onboard.entities.Win;
+import com.onboard.pojos.GameToAdd;
 import com.onboard.pojos.MyGamesRecord;
+import com.onboard.repositories.GameRepository;
 import com.onboard.repositories.UserRepository;
 import com.onboard.services.BoardGameAtlasAPICommunicationService;
 import lombok.AllArgsConstructor;
@@ -12,14 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Long.valueOf;
 
 @Slf4j
 @RestController
@@ -27,12 +29,34 @@ import java.util.stream.Collectors;
 public class MyGamesController {
 
     private final UserRepository userRepository;
+    private final GameRepository gameRepository;
     private final BoardGameAtlasAPICommunicationService bgaService;
 
     @Autowired
-    public MyGamesController(UserRepository userRepository, BoardGameAtlasAPICommunicationService bgaService) {
+    public MyGamesController(UserRepository userRepository, GameRepository gameRepository, BoardGameAtlasAPICommunicationService bgaService) {
         this.userRepository = userRepository;
+        this.gameRepository = gameRepository;
         this.bgaService = bgaService;
+    }
+
+    @PostMapping("/add/{username}")
+    public void addGame(@PathVariable String username, @RequestBody GameToAdd gameToAdd) {
+        if (gameToAdd.getId().matches("^[0-9]*$") && gameRepository.existsById(valueOf(gameToAdd.getId()))) {
+            Game game = gameRepository.getById(valueOf(gameToAdd.getId()));
+            User user = userRepository.findByUsername(username);
+            saveGameForUser(game, user);
+        } else {
+            Game game = gameRepository.save(new Game(gameToAdd.getId(), gameToAdd.getName()));
+            User user = userRepository.findByUsername(username);
+            saveGameForUser(game, user);
+        }
+    }
+
+    private void saveGameForUser(Game game, User user) {
+        game.getUsers().add(user);
+        user.getGames().add(game);
+        gameRepository.save(game);
+        userRepository.save(user);
     }
 
     @GetMapping("/{username}")
@@ -64,7 +88,7 @@ public class MyGamesController {
             return null;
 
         Map<String, List<Win>> userWinsMap = game.getWins().stream().collect(Collectors.groupingBy(win -> win.getUser().getUsername()));
-        myScore = userWinsMap.get(username).size();
+        myScore = userWinsMap.get(username) == null ? 0 : userWinsMap.get(username).size();
         updateTopPlayerWithScore(topPlayerWithScore, userWinsMap);
         latestWinDate = getLatestWinDate(username, userWinsMap);
 
@@ -98,7 +122,7 @@ public class MyGamesController {
     }
 
     private LocalDate getLatestWinDate(String username, Map<String, List<Win>> userWinsMap) {
-        Optional<Win> latestWin = userWinsMap.get(username).stream().min((w1, w2) -> w2.getDate().compareTo(w1.getDate()));
+        Optional<Win> latestWin = userWinsMap.get(username) == null ? Optional.empty() : userWinsMap.get(username).stream().min((w1, w2) -> w2.getDate().compareTo(w1.getDate()));
         return latestWin.map(Win::getDate).orElse(null);
     }
 
