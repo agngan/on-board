@@ -9,6 +9,10 @@ import "../../stylesheets/CustomButtons.css"
 
 class GameInfo extends Component {
 
+    state = {
+        gameAdded: this.props.game.added
+    };
+
     onAddGameClick = () => {
         if (AuthenticationService.isUserLoggedIn()) {
             const postData = {
@@ -20,9 +24,13 @@ class GameInfo extends Component {
                 {withCredentials: true},
                 {headers: AuthenticationService.getPostHeaders()})
                 .then(() => {
-                console.log("post successful");
-                window.location.replace("/my-games");
-            });
+                    console.log("post successful");
+                    // window.location.replace("/my-games");
+                    const newState = this.state;
+                    newState.gameAdded = true;
+                    this.setState(newState);
+                    console.log(this.state);
+                });
         } else {
             window.location.replace("/login");
         }
@@ -53,8 +61,10 @@ class GameInfo extends Component {
                         <span><span className="info-title">Primary publisher: </span>
                             {this.props.game.primaryPublisher}</span><br/>
 
-                        <Button className="custom-button mt-2" onClick={this.onAddGameClick}><span
-                            className="custom-button-text">Add to my games</span></Button>
+                        <Button className="custom-button mt-2" onClick={this.onAddGameClick}
+                                disabled={this.state.gameAdded}>
+                            <span className="custom-button-text">{this.state.gameAdded ? "Added" : "Add to my games"}</span>
+                        </Button>
                         <Link to={{
                             pathname: "/ranking",
                             state: {

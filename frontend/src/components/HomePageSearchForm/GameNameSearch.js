@@ -3,6 +3,7 @@ import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import AxiosClient from "../Authentication/AxiosClient";
+import AuthenticationService from "../Authentication/AuthenticationService";
 
 class GameNameSearch extends Component {
 
@@ -29,6 +30,10 @@ class GameNameSearch extends Component {
 
     getGames() {
         const params = new URLSearchParams([['name', this.state.gameName]]);
+        if (AuthenticationService.isUserLoggedIn()){
+            return AxiosClient.get("bga/searchByName/" + AuthenticationService.getLoggedInUser(), { params })
+                .then(res => res.data);
+        }
         return AxiosClient.get("bga/searchByName", { params })
             .then(res => res.data);
     }

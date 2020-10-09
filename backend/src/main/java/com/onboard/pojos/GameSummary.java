@@ -15,4 +15,5 @@ public class GameSummary {
     private final String primaryPublisher;
     private final String description;
     private final boolean hasRanking;
+    private final boolean added;
 }
