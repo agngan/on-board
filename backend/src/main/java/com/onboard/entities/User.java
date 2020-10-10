@@ -1,6 +1,7 @@
 package com.onboard.entities;
 
 import lombok.*;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.beans.factory.annotation.Required;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -24,6 +25,7 @@ public class User implements UserDetails {
     private final String username;
     private final String password;
     private final String email;
+    private String secretWord = RandomString.make(10);
 
     @ManyToMany
     @JoinTable(
