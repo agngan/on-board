@@ -1,11 +1,8 @@
 package com.onboard.controllers;
 
-import com.onboard.entities.Game;
 import com.onboard.entities.User;
-import com.onboard.entities.Win;
 import com.onboard.pojos.ProfileInfo;
 import com.onboard.repositories.UserRepository;
-import net.bytebuddy.utility.RandomString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -30,8 +25,8 @@ public class MyProfileController {
     }
 
     @GetMapping("/{username}")
-    public ResponseEntity<ProfileInfo> getProfile(@PathVariable String username){
-        if (!userRepository.existsByUsername(username)){
+    public ResponseEntity<ProfileInfo> getProfile(@PathVariable String username) {
+        if (!userRepository.existsByUsername(username)) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
