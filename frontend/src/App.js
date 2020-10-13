@@ -7,6 +7,7 @@ import MyGames from "./pages/MyGames";
 import Ranking from "./pages/Ranking";
 import Login from "./pages/Login";
 import Registration from "./pages/Registration";
+import MyProfile from "./pages/MyProfile";
 import './App.css';
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
                     <Route exact path="/ranking" component={Ranking}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Registration}/>
+                    <AuthenticatedRoute exact path="/my-profile" component={MyProfile}/>
                 </Switch>
             </Router>
         </div>

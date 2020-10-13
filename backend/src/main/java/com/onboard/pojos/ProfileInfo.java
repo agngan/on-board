@@ -7,5 +7,5 @@ public class ProfileInfo {
 
     private final Long totalWins;
     private final String gameWithHighestScore;
-    private final String secretWord;
+    private final String secretCode;
 }

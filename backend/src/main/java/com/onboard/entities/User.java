@@ -25,7 +25,7 @@ public class User implements UserDetails {
     private final String username;
     private final String password;
     private final String email;
-    private String secretWord = RandomString.make(10);
+    private String secretCode = RandomString.make(10);
 
     @ManyToMany
     @JoinTable(
