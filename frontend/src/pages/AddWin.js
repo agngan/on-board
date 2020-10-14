@@ -31,7 +31,7 @@ class AddWin extends Component {
     render() {
         return (
             <div>
-                <div className="title">How many registered players have you conquered?</div>
+                <div className="add-win-title">How many registered players have you conquered?</div>
                 <div className="add-win-info">To validate your win at least one of your opponents must share their
                     secret code with you.
                 </div>

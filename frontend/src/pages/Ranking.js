@@ -26,7 +26,7 @@ class Ranking extends Component {
 
     getRanking() {
         console.log(this.state);
-        console.log("game id: " + this.props.location.state.gameId)
+        console.log("game id: " + this.props.location.state.gameId);
         return AxiosClient.get("rankings/" + this.props.location.state.gameId)
             .then(res => res.data.scores);
     }

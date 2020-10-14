@@ -23,11 +23,23 @@ class GameInfoSmall extends Component {
                     <span>Last win: {this.props.game.lastWin}</span><br/>
 
                     <div className="game-info-small-buttons">
-                        <Button className="custom-button mt-2"><span
-                            className="custom-button-text">I won!</span></Button>
-                        <Link to={{pathname: "/ranking", state: {gameId: this.props.game.gameId, gameName: this.props.game.gameName}}}>
+                        <Link to={{
+                            pathname: "/add-win",
+                            state: {gameId: this.props.game.gameId}
+                        }}>
                             <Button className="custom-button mt-2"><span
-                            className="custom-button-text">See ranking</span></Button>
+                                className="custom-button-text">I won!</span></Button>
+                        </Link>
+                        <Link to={{
+                            pathname: "/ranking",
+                            state: {
+                                gameId: this.props.game.gameId,
+                                gameName: this.props.game.gameName,
+                                gameHasRanking: this.props.game.hasRanking
+                            }
+                        }}>
+                            <Button className="custom-button mt-2"><span
+                                className="custom-button-text">See ranking</span></Button>
                         </Link>
                     </div>
                 </div>
