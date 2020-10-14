@@ -43,9 +43,13 @@ class MyProfile extends Component {
     render() {
         return (
             <div>
-                <div className="info">Hello <span className="value">{AuthenticationService.getLoggedInUser()}</span>!</div>
-                <div className="info">You have won <span className="value">{this.state.profileInfo.totalWins}</span> games in total</div>
-                <div className="info">Your game with highest score is <span className="value">{this.state.profileInfo.gameWithHighestScore}</span></div>
+                <div className="info">Hello <span className="value">{AuthenticationService.getLoggedInUser()}</span>!
+                </div>
+                <div className="info">You have won <span
+                    className="value">{this.state.profileInfo.totalWins}</span> games in total
+                </div>
+                <div className="info">Your game with highest score is <span
+                    className="value">{this.state.profileInfo.gameWithHighestScore}</span></div>
                 <div className="info">Your one time use secret code for validating your friend's win: <span
                     className="value">{this.state.profileInfo.secretCode}</span></div>
             </div>
