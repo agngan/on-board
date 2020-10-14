@@ -13,8 +13,9 @@ class WinValidationBox extends Component {
     };
 
     onChange = event => {
-        this.setState({validation: {...this.state.validation, [event.target.id]: event.target.value}});
-        this.props.onChange(this.state);
+        const newState = {validation: {...this.state.validation, [event.target.id]: event.target.value}};
+        this.setState(newState);
+        this.props.onChange(newState);
     };
 
     render() {

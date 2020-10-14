@@ -17,16 +17,12 @@ class Ranking extends Component {
         const newState = this.state;
         newState.gameName = this.props.location.state.gameName;
         this.setState(newState);
-        console.log(this.props.location.state.gameName);
-        console.log(this.state);
         if (this.props.location.state.gameHasRanking) {
             this.getRanking().then(this.processScores(), this.handleError());
         }
     }
 
     getRanking() {
-        console.log(this.state);
-        console.log("game id: " + this.props.location.state.gameId);
         return AxiosClient.get("rankings/" + this.props.location.state.gameId)
             .then(res => res.data.scores);
     }
@@ -44,7 +40,6 @@ class Ranking extends Component {
     formatScore() {
         return (score, i) => {
             score.id = i + 1;
-            console.log(score);
         }
     }
 

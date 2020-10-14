@@ -25,7 +25,10 @@ class GameInfoSmall extends Component {
                     <div className="game-info-small-buttons">
                         <Link to={{
                             pathname: "/add-win",
-                            state: {gameId: this.props.game.gameId}
+                            state: {
+                                gameId: this.props.game.gameId,
+                                gameName: this.props.game.gameName,
+                            }
                         }}>
                             <Button className="custom-button mt-2"><span
                                 className="custom-button-text">I won!</span></Button>
