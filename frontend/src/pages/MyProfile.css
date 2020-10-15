@@ -1,0 +1,18 @@
+.MyProfile {
+    text-align: center;
+}
+
+.info {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    margin-top: 5%;
+}
+
+.value {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 30px;
+    color: #8585f4;
+}

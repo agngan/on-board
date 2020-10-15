@@ -1,0 +1,11 @@
+.WinValidationBox {
+    text-align: center;
+}
+
+.validation-box {
+    margin: 3% 35%;
+    border-radius: 20px;
+    background-color: #9EA8FF;
+    align-items: center;
+    padding: 35px;
+}

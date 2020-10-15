@@ -7,6 +7,7 @@ import com.onboard.pojos.GameToAdd;
 import com.onboard.pojos.MyGamesRecord;
 import com.onboard.repositories.GameRepository;
 import com.onboard.repositories.UserRepository;
+import com.onboard.repositories.WinRepository;
 import com.onboard.services.BoardGameAtlasAPICommunicationService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -30,12 +31,14 @@ public class MyGamesController {
 
     private final UserRepository userRepository;
     private final GameRepository gameRepository;
+    private final WinRepository winRepository;
     private final BoardGameAtlasAPICommunicationService bgaService;
 
     @Autowired
-    public MyGamesController(UserRepository userRepository, GameRepository gameRepository, BoardGameAtlasAPICommunicationService bgaService) {
+    public MyGamesController(UserRepository userRepository, GameRepository gameRepository, WinRepository winRepository, BoardGameAtlasAPICommunicationService bgaService) {
         this.userRepository = userRepository;
         this.gameRepository = gameRepository;
+        this.winRepository = winRepository;
         this.bgaService = bgaService;
     }
 
@@ -92,7 +95,8 @@ public class MyGamesController {
         updateTopPlayerWithScore(topPlayerWithScore, userWinsMap);
         latestWinDate = getLatestWinDate(username, userWinsMap);
 
-        return new MyGamesRecord(game.getId(), game.getName(), imagePath, myScore, topPlayerWithScore.getBestScore(), topPlayerWithScore.getTopPlayer(), latestWinDate);
+        return new MyGamesRecord(game.getId(), game.getName(), imagePath, myScore, topPlayerWithScore.getBestScore(),
+                topPlayerWithScore.getTopPlayer(), latestWinDate, winRepository.existsByGame_Id(game.getId()));
     }
 
     private String getImagePath(String ids) {

@@ -14,4 +14,5 @@ public class MyGamesRecord {
     private final Long bestScore;
     private final String topPlayer;
     private final LocalDate lastWin;
+    private final boolean hasRanking;
 }

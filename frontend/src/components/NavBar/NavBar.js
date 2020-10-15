@@ -15,6 +15,9 @@ class NavBar extends Component {
                         <Nav.Link href="/my-games"><span className="nav-item-text">My&nbsp;games</span></Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
+                        <Nav.Link href="/my-profile"><span className="nav-item-text">My&nbsp;profile</span></Nav.Link>
+                    </Nav.Item>
+                    <Nav.Item>
                         {AuthenticationService.isUserLoggedIn() ?
                             <Nav.Link href="/">
                                 <Button className="nav-login-button btn-dark" onClick={AuthenticationService.logout}>
