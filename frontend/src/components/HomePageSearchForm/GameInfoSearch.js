@@ -16,10 +16,7 @@ class GameInfoSearch extends Component {
         numberOfPlayers: initialNumberOfPlayers,
         playtimeRange: initialPlaytimeRange,
         minAge: initialMinAge,
-        category: {
-            name: "",
-            id: ""
-        }
+        categories: []
     };
 
     onNumberOfPlayersChange = playersNumber => {
@@ -43,10 +40,9 @@ class GameInfoSearch extends Component {
         console.log(this.state);
     };
 
-    onCategoryChange = category => {
-        if (this.state.category === category) return;
+    setCategories = categories => {
         const newState = this.state;
-        newState.category = category;
+        newState.categories = categories;
         this.setState(newState);
         console.log(this.state);
     };
@@ -61,7 +57,7 @@ class GameInfoSearch extends Component {
             ['numberOfPlayers', this.state.numberOfPlayers],
             ["playtimeRange", this.state.playtimeRange],
             ["minAge", this.state.minAge[0]],
-            ["category", this.state.category.id]]);
+            ["categories", this.state.categories.map(category => category.id)]]);
         if (AuthenticationService.isUserLoggedIn()){
             return AxiosClient.get("bga/searchByDetails/" + AuthenticationService.getLoggedInUser(), { params })
                 .then(res => res.data);
@@ -119,7 +115,7 @@ class GameInfoSearch extends Component {
 
                 <div className="box-right" style={{paddingTop: '10px'}}>
                     <span className="form-title">Category:</span>
-                    <CategoriesDropdown onCategoryChange={this.onCategoryChange}/>
+                    <CategoriesDropdown setCategories={this.setCategories}/>
                 </div>
 
                 <div className="center">
