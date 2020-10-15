@@ -17,12 +17,19 @@ class AddWin extends Component {
     onRadioClick = event => {
         const newState = this.state;
         newState.numberOfValidators = event.target.value;
+        while (this.state.validations.length > newState.numberOfValidators) {
+            newState.validations.pop();
+        }
         this.setState(newState);
     };
 
     onValidationChange = validationBox => {
         let newState = this.state;
-        newState.validations[validationBox.id] = validationBox.validation;
+        if (this.state.validations.length > Number(validationBox.id)) {
+            newState.validations[Number(validationBox.id)] = validationBox.validation;
+        } else {
+            newState.validations.push(validationBox.validation);
+        }
         this.setState(newState);
     };
 

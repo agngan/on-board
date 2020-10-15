@@ -1,11 +1,13 @@
 package com.onboard.controllers;
 
+import com.onboard.entities.User;
 import com.onboard.entities.Win;
 import com.onboard.pojos.WinInfo;
 import com.onboard.pojos.WinValidationData;
 import com.onboard.repositories.GameRepository;
 import com.onboard.repositories.UserRepository;
 import com.onboard.repositories.WinRepository;
+import net.bytebuddy.utility.RandomString;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +51,12 @@ public class WinsController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         winRepository.save(new Win(LocalDate.now(), userRepository.findByUsername(username), gameRepository.getById(winInfo.getGameId())));
+
+        for (WinValidationData validation : winInfo.getValidations()){
+            User user = userRepository.findByUsername(validation.getUsername());
+            user.setSecretCode(RandomString.make(10));
+            userRepository.save(user);
+        }
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
