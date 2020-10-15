@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import AxiosClient from "../components/Authentication/AxiosClient";
 import AuthenticationService from "../components/Authentication/AuthenticationService";
 import GameInfoSmall from "../components/GameInfoSmall/GameInfoSmall";
 import "./MyGames.css";
+import "../stylesheets/StatusMessages.css";
 
 class MyGames extends Component {
 
@@ -54,13 +56,16 @@ class MyGames extends Component {
     }
 
     renderGames() {
-        // TODO: make error and loading messages look good
         if (this.state.error) {
-            return <span>Error</span>
+            return <div className="error-message">Error</div>
         } else if (!this.state.isLoaded) {
-            return <span>Loading...</span>
+            return <div className="status-field d-flex align-items-center">
+                <Spinner className="spinner" animation="border" variant="light"/>
+                <span className="loading-message">Loading...</span>
+            </div>
         } else {
-            return this.state.myGames.map(game => <Col key={game.gameId}><GameInfoSmall key={game.id} game={game}/></Col>);
+            return this.state.myGames.map(game => <Col key={game.gameId}><GameInfoSmall key={game.id}
+                                                                                        game={game}/></Col>);
         }
     }
 }
