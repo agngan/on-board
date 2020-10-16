@@ -32,7 +32,7 @@ public class MyProfileController {
 
         User user = userRepository.findByUsername(username);
         Map<String, Long> scores = user.getWins().stream().collect(Collectors.groupingBy(win -> win.getGame().getName(), Collectors.counting()));
-        String gameWithHighestScore = Collections.max(scores.entrySet(), Map.Entry.comparingByValue()).getKey();
+        String gameWithHighestScore = scores.size() == 0 ? "" : Collections.max(scores.entrySet(), Map.Entry.comparingByValue()).getKey();
 
         return new ResponseEntity<>(new ProfileInfo((long) user.getWins().size(), gameWithHighestScore, user.getSecretCode()), HttpStatus.OK);
     }
