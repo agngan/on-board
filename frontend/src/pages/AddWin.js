@@ -33,6 +33,12 @@ class AddWin extends Component {
         this.setState(newState);
     };
 
+    onKeyDown = event => {
+        if (event.key === 'Enter') {
+            this.onAddWinClick();
+        }
+    };
+
     onAddWinClick = () => {
         console.log(this.state);
         const postData = {
@@ -73,7 +79,8 @@ class AddWin extends Component {
                 </Form>
 
                 {Array.from(Array(Number(this.state.numberOfValidators))).map((x, i) => <WinValidationBox key={i} id={i}
-                                                                                                          onChange={this.onValidationChange}/>)}
+                                                                                                          onChange={this.onValidationChange}
+                                                                                                          onKeyDown={this.onKeyDown}/>)}
 
                 <div className="add-win-button">
                     <Button className="custom-button" type="submit" onClick={this.onAddWinClick}><span

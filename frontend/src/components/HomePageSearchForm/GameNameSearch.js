@@ -18,8 +18,14 @@ class GameNameSearch extends Component {
     };
 
     onKeyDown = event => {
-        if (event.key === 'Enter')
+        if (event.key === 'Enter') {
             this.onFindClick();
+        }
+    };
+
+    onSubmit = event => {
+        event.preventDefault();
+        this.onFindClick();
     };
 
     onFindClick = () => {
@@ -30,11 +36,11 @@ class GameNameSearch extends Component {
 
     getGames() {
         const params = new URLSearchParams([['name', this.state.gameName]]);
-        if (AuthenticationService.isUserLoggedIn()){
-            return AxiosClient.get("bga/searchByName/" + AuthenticationService.getLoggedInUser(), { params })
+        if (AuthenticationService.isUserLoggedIn()) {
+            return AxiosClient.get("bga/searchByName/" + AuthenticationService.getLoggedInUser(), {params})
                 .then(res => res.data);
         }
-        return AxiosClient.get("bga/searchByName", { params })
+        return AxiosClient.get("bga/searchByName", {params})
             .then(res => res.data);
     }
 
@@ -54,7 +60,7 @@ class GameNameSearch extends Component {
         return (
             <div className="search-form">
                 <div className="search-text">Are you looking for something specific?</div>
-                <Form className="search-bar">
+                <Form className="search-bar" onSubmit={this.onSubmit}>
                     <Form.Row>
                         <Col>
                             <Form.Control type="text" placeholder="Find a game by its name"
@@ -66,7 +72,6 @@ class GameNameSearch extends Component {
                         </Col>
                     </Form.Row>
                 </Form>
-
             </div>
         );
     }

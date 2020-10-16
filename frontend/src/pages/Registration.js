@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import Cookies from "universal-cookie";
 import AxiosClient from "../components/Authentication/AxiosClient";
+import AuthenticationService from "../components/Authentication/AuthenticationService";
 import "./Registration.css";
 import "../stylesheets/CustomButtons.css";
 
@@ -25,15 +25,9 @@ class Registration extends Component {
     };
 
     onRegisterClick = () => {
-        const cookies = new Cookies();
-        const csrfToken = cookies.get('XSRF-TOKEN');
-        // TODO: delete console logs when ready
-        console.log(csrfToken);
-        console.log(this.state);
-
         AxiosClient.post("register", this.state,
             {withCredentials: true},
-            {headers: {'X-XSRF-TOKEN': csrfToken}})
+            {headers: AuthenticationService.getPostHeaders()})
             .then(() => {
                 console.log("Registration successful");
                 window.location.replace("/login");

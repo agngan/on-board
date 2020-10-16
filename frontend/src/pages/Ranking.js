@@ -69,7 +69,6 @@ class Ranking extends Component {
                     this.renderScores() :
                     <div className="title">There is no ranking for this game because no players have claimed any
                         victories yet.</div>}
-                {/*{this.renderScores()}*/}
             </div>
         );
     }
