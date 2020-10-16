@@ -59,7 +59,8 @@ class AddWin extends Component {
                         gameHasRanking: true
                     }
                 });
-            });
+            })
+            .catch(errors => this.setState({errors: errors.response.data}));
     };
 
     render() {
@@ -77,6 +78,11 @@ class AddWin extends Component {
                     <Form.Check className="checkbox" type='radio' name="numberOfValidators" label='3' value={3}
                                 onClick={this.onRadioClick}/>
                 </Form>
+
+                {this.state.errors &&
+                <div className="alert alert-warning errors-box">
+                    {this.state.errors.map((error, id) => <div className="error-text" key={id}>{error}<br/></div>)}
+                </div>}
 
                 {Array.from(Array(Number(this.state.numberOfValidators))).map((x, i) => <WinValidationBox key={i} id={i}
                                                                                                           onChange={this.onValidationChange}

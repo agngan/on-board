@@ -35,7 +35,7 @@ public class WinsController {
         List<String> errors = new ArrayList<>();
         for (WinValidationData validation : winInfo.getValidations()){
             if (validation.getUsername().equals(username)){
-                errors.add("You cannot use yourself to validate you win");
+                errors.add("You cannot use yourself to validate your win");
             }
             if (!userRepository.existsByUsername(validation.getUsername())){
                 errors.add("User with username '" + validation.getUsername() + "' does not exist");
