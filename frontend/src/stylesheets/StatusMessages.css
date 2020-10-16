@@ -1,0 +1,24 @@
+.error-message {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+    margin-top: 20px;
+}
+
+.status-field {
+    margin-top: 20px;
+    margin-left: 46%;
+    margin-right: 44%
+}
+
+.loading-message {
+    font-family: Roboto, sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+    color: white;
+}
+
+.spinner {
+    margin-right: 5px;
+}

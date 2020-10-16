@@ -8,7 +8,8 @@ import AuthenticationService from "../Authentication/AuthenticationService";
 class GameNameSearch extends Component {
 
     state = {
-        gameName: ""
+        gameName: "",
+        triedToSendEmptyName: false
     };
 
     onGameNameChange = event => {
@@ -18,23 +19,37 @@ class GameNameSearch extends Component {
     };
 
     onKeyDown = event => {
-        if (event.key === 'Enter')
+        if (event.key === 'Enter') {
             this.onFindClick();
+        }
+    };
+
+    onSubmit = event => {
+        event.preventDefault();
+        this.onFindClick();
     };
 
     onFindClick = () => {
-        this.props.setSearchStarted();
-        // TODO: Handle sending empty name
-        this.getGames().then(this.processGames(), this.handleError());
+        if (this.state.gameName === "") {
+            const newState = this.state;
+            newState.triedToSendEmptyName = true;
+            this.setState(newState);
+        } else {
+            const newState = this.state;
+            newState.triedToSendEmptyName = false;
+            this.setState(newState);
+            this.props.setSearchStarted();
+            this.getGames().then(this.processGames(), this.handleError());
+        }
     };
 
     getGames() {
         const params = new URLSearchParams([['name', this.state.gameName]]);
-        if (AuthenticationService.isUserLoggedIn()){
-            return AxiosClient.get("bga/searchByName/" + AuthenticationService.getLoggedInUser(), { params })
+        if (AuthenticationService.isUserLoggedIn()) {
+            return AxiosClient.get("bga/searchByName/" + AuthenticationService.getLoggedInUser(), {params})
                 .then(res => res.data);
         }
-        return AxiosClient.get("bga/searchByName", { params })
+        return AxiosClient.get("bga/searchByName", {params})
             .then(res => res.data);
     }
 
@@ -52,21 +67,24 @@ class GameNameSearch extends Component {
 
     render() {
         return (
-            <div className="search-form">
-                <div className="search-text">Are you looking for something specific?</div>
-                <Form className="search-bar">
-                    <Form.Row>
-                        <Col>
-                            <Form.Control type="text" placeholder="Find a game by its name"
-                                          onChange={this.onGameNameChange} onKeyDown={this.onKeyDown}/>
-                        </Col>
-                        <Col>
-                            <Button className="custom-button" onClick={this.onFindClick}><span
-                                className="custom-button-text">FIND</span></Button>
-                        </Col>
-                    </Form.Row>
-                </Form>
-
+            <div>
+                <div className="search-form">
+                    <div className="search-text">Are you looking for something specific?</div>
+                    <Form className="search-bar" onSubmit={this.onSubmit}>
+                        <Form.Row>
+                            <Col>
+                                <Form.Control type="text" placeholder="Find a game by its name"
+                                              onChange={this.onGameNameChange} onKeyDown={this.onKeyDown}/>
+                            </Col>
+                            <Col>
+                                <Button className="custom-button" onClick={this.onFindClick}><span
+                                    className="custom-button-text">FIND</span></Button>
+                            </Col>
+                        </Form.Row>
+                    </Form>
+                </div>
+                {this.state.triedToSendEmptyName &&
+                <div className="search-text">To search a game by its name you need to provide a name</div>}
             </div>
         );
     }

@@ -35,3 +35,11 @@
     width: 10%;
     margin: 3% 45%;
 }
+
+.errors-box {
+    margin: 3% 35%;
+    border-radius: 20px;
+    /*background-color: #9EA8FF;*/
+    align-items: center;
+    /*padding: 35px;*/
+}

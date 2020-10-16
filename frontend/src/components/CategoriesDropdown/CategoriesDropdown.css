@@ -46,3 +46,43 @@
     background-color: #7378bf;
 }
 
+
+.checkbox-menu li label {
+    display: block;
+    padding: 3px 10px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    color: #333;
+    white-space: nowrap;
+    margin:0;
+    transition: background-color .4s ease;
+}
+
+.checkbox-menu li input {
+    margin: 0 5px;
+    top: 2px;
+    position: relative;
+}
+
+.checkbox-menu li.active label {
+    background-color: #9ba5ff;
+    font-weight:bold;
+}
+
+.checkbox-menu li:not(.active):hover,
+.checkbox-menu li:not(.active):focus {
+    background-color: #c7c2ff !important;
+}
+
+.checkbox-menu li.active label:hover,
+.checkbox-menu li.active label:focus {
+    background-color: #6e72e4;
+}
+
+.category-checkbox {
+     margin-left: 15px;
+     text-align: center;
+     /*background-color: #4c50b4;*/
+ }
+

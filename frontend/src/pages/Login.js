@@ -18,7 +18,6 @@ class Login extends Component {
     };
 
     onLoginClick = () => {
-        console.log(this.state);
         AuthenticationService.executeBasicAuthenticationService(this.state.username, this.state.password)
             .then(() => {
                 AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password);
@@ -38,6 +37,8 @@ class Login extends Component {
         return (
             <div>
                 <div className="login-background">
+                    {this.state.hasLoginFailed &&
+                    <div className="alert alert-warning">Incorrect username or password</div>}
                     <Form>
                         <Form.Group controlId="username">
                             <Form.Label>Username</Form.Label>

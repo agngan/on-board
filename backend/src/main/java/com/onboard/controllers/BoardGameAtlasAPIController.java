@@ -40,13 +40,13 @@ public class BoardGameAtlasAPIController {
                                                              @RequestParam List<Integer> numberOfPlayers,
                                                              @RequestParam List<Integer> playtimeRange,
                                                              @RequestParam Integer minAge,
-                                                             @RequestParam String category) {
-        Map<String, String> parameters = getDetailsParametersMap(numberOfPlayers, playtimeRange, minAge, category);
+                                                             @RequestParam List<String> categories) {
+        Map<String, String> parameters = getDetailsParametersMap(numberOfPlayers, playtimeRange, minAge, categories);
         List<GameSummary> gameSummaries = getGameSummaries(parameters, username);
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);
     }
 
-    private Map<String, String> getDetailsParametersMap(@RequestParam List<Integer> numberOfPlayers, @RequestParam List<Integer> playtimeRange, @RequestParam Integer minAge, @RequestParam String category) {
+    private Map<String, String> getDetailsParametersMap(List<Integer> numberOfPlayers, List<Integer> playtimeRange, Integer minAge, List<String> categories) {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("limit", String.valueOf(limit));
         parameters.put("lt_min_players", Integer.toString(numberOfPlayers.get(0) + 1));
@@ -54,8 +54,10 @@ public class BoardGameAtlasAPIController {
         parameters.put("gt_min_playtime", Integer.toString(playtimeRange.get(0) - 1));
         parameters.put("lt_max_playtime", Integer.toString(playtimeRange.get(1) + 1));
         parameters.put("lt_min_age", Integer.toString(minAge + 1));
-        if (!category.equals(""))
-            parameters.put("categories", category);
+        if (!categories.isEmpty()) {
+            parameters.put("categories", String.join(",", categories));
+        }
+        parameters.put("order_by", "popularity");
         return parameters;
     }
 
@@ -108,6 +110,7 @@ public class BoardGameAtlasAPIController {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("name", name);
         parameters.put("fuzzy_match", "true");
+        parameters.put("order_by", "popularity");
 
         List<GameSummary> gameSummaries = getGameSummaries(parameters, username);
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);

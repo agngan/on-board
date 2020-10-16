@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Spinner from "react-bootstrap/Spinner";
 import AxiosClient from "../components/Authentication/AxiosClient";
 import RankingTableElement from "../components/RankingTable/RankingTableElement";
 import './Ranking.css';
+import "../stylesheets/StatusMessages.css";
 
 class Ranking extends Component {
 
@@ -64,19 +66,21 @@ class Ranking extends Component {
                     <Col>SCORE</Col>
                 </Row>
                 {this.props.location.state.gameHasRanking ?
-                this.renderScores() :
-                    <div className="title">There is no ranking for this game because no players have claimed any victories yet.</div>}
-                {/*{this.renderScores()}*/}
+                    this.renderScores() :
+                    <div className="title">There is no ranking for this game because no players have claimed any
+                        victories yet.</div>}
             </div>
         );
     }
 
     renderScores() {
-        // TODO: make error and loading messages look good
         if (this.state.error) {
-            return <span>Error</span>
+            return <div className="error-message">Error</div>
         } else if (!this.state.isLoaded) {
-            return <span>Loading...</span>
+            return <div className="status-field d-flex align-items-center">
+                <Spinner className="spinner" animation="border" variant="light"/>
+                <span className="loading-message">Loading...</span>
+            </div>
         } else {
             return this.state.scores.map(score => <RankingTableElement key={score.id} score={score}/>);
         }

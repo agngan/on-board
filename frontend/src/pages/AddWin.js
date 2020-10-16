@@ -33,6 +33,12 @@ class AddWin extends Component {
         this.setState(newState);
     };
 
+    onKeyDown = event => {
+        if (event.key === 'Enter') {
+            this.onAddWinClick();
+        }
+    };
+
     onAddWinClick = () => {
         console.log(this.state);
         const postData = {
@@ -53,7 +59,8 @@ class AddWin extends Component {
                         gameHasRanking: true
                     }
                 });
-            });
+            })
+            .catch(errors => this.setState({errors: errors.response.data}));
     };
 
     render() {
@@ -72,8 +79,14 @@ class AddWin extends Component {
                                 onClick={this.onRadioClick}/>
                 </Form>
 
+                {this.state.errors &&
+                <div className="alert alert-warning errors-box">
+                    {this.state.errors.map((error, id) => <div className="error-text" key={id}>{error}<br/></div>)}
+                </div>}
+
                 {Array.from(Array(Number(this.state.numberOfValidators))).map((x, i) => <WinValidationBox key={i} id={i}
-                                                                                                          onChange={this.onValidationChange}/>)}
+                                                                                                          onChange={this.onValidationChange}
+                                                                                                          onKeyDown={this.onKeyDown}/>)}
 
                 <div className="add-win-button">
                     <Button className="custom-button" type="submit" onClick={this.onAddWinClick}><span

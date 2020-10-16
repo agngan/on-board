@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import Spinner from "react-bootstrap/Spinner";
 import AxiosClient from "../components/Authentication/AxiosClient";
 import AuthenticationService from "../components/Authentication/AuthenticationService";
 import "./MyProfile.css"
+import "../stylesheets/StatusMessages.css";
 
 class MyProfile extends Component {
 
@@ -26,7 +28,6 @@ class MyProfile extends Component {
             newState.isLoaded = true;
             newState.profileInfo = info;
             this.setState(newState);
-            console.log(newState);
         };
     }
 
@@ -41,19 +42,32 @@ class MyProfile extends Component {
     }
 
     render() {
-        return (
-            <div>
+        return (this.renderProfileInfo());
+    }
+
+    renderProfileInfo() {
+        if (this.state.error) {
+            return <div className="error-message">Error</div>
+        } else if (!this.state.isLoaded) {
+            return <div className="status-field d-flex align-items-center">
+                <Spinner className="spinner" animation="border" variant="light"/>
+                <span className="loading-message">Loading...</span>
+            </div>
+        } else {
+            return <div>
                 <div className="info">Hello <span className="value">{AuthenticationService.getLoggedInUser()}</span>!
                 </div>
                 <div className="info">You have won <span
-                    className="value">{this.state.profileInfo.totalWins}</span> games in total
+                    className="value">{this.state.profileInfo.totalWins}</span> {this.state.profileInfo.totalWins === 1 ? "time" : "times"} in
+                    total
                 </div>
+                {this.state.profileInfo.gameWithHighestScore !== "" &&
                 <div className="info">Your game with highest score is <span
-                    className="value">{this.state.profileInfo.gameWithHighestScore}</span></div>
+                    className="value">{this.state.profileInfo.gameWithHighestScore}</span></div>}
                 <div className="info">Your one time use secret code for validating your friend's win: <span
                     className="value">{this.state.profileInfo.secretCode}</span></div>
             </div>
-        );
+        }
     }
 }
 

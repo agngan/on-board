@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import DropdownButton from "react-bootstrap/DropdownButton";
-import Dropdown from "react-bootstrap/Dropdown";
-import "./CategoriesDropdown.css"
 import AxiosClient from "../Authentication/AxiosClient";
+import CategoryCheckbox from "./CategoryCheckbox";
+import "./CategoriesDropdown.css"
 
 class CategoriesDropdown extends Component {
 
@@ -13,24 +13,8 @@ class CategoriesDropdown extends Component {
             name: "Category",
             id: ""
         },
-        categories: [
-            {
-                name: "Abstract",
-                id: "hBqZ3Ar4RJ"
-            },
-            {
-                name: "Adventure",
-                id: "KUBCKBkGxV"
-            },
-            {
-                name: "Card game",
-                id: "eX8uuNlQkQ"
-            },
-            {
-                name: "Math",
-                id: "POlqwScVxD"
-            }
-        ]
+        categories: [],
+        chosenCategories: []
     };
 
     componentDidMount() {
@@ -62,19 +46,23 @@ class CategoriesDropdown extends Component {
 
     onCategorySelect = eventKey => {
         const newState = this.state;
-        newState.category = eventKey;
+        newState.chosenCategories = eventKey.checked ?
+            newState.chosenCategories.concat(eventKey.category) :
+            newState.chosenCategories.filter(category => category.id !== eventKey.category.id);
         this.setState(newState);
-        this.props.onCategoryChange(eventKey);
+        this.props.setCategories(newState.chosenCategories);
+        console.log(newState.chosenCategories);
     };
 
     render() {
         return (
             <div className="categories-dropdown">
-                <DropdownButton size="sm" variant="primary" title={this.state.category.name}>
-                    <div className="categories-menu overflow-auto scrollbar">
-                        {this.state.categories.map(category => <Dropdown.Item key={category.id}
-                                                                              eventKey={category}
-                                                                              onSelect={() => this.onCategorySelect(category)}>{category.name}</Dropdown.Item>)}
+                <DropdownButton size="sm" variant="primary" title="Category">
+                    <div className="categories-menu checkbox-menu overflow-auto scrollbar">
+                        {this.state.categories.map(category => <CategoryCheckbox key={category.id}
+                                                                                 name={category.name}
+                                                                                 category={category}
+                                                                                 onChange={this.onCategorySelect}/>)}
                     </div>
                 </DropdownButton>
             </div>
