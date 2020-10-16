@@ -43,7 +43,6 @@ public class AuthenticationController {
     }
 
     private void validateForm(RegistrationForm form, BindingResult bindingResult) {
-        // TODO: add test
         if (userRepository.existsByUsername(form.getUsername())){
             bindingResult.addError(new ObjectError("username.unique", "Username already taken"));
         }

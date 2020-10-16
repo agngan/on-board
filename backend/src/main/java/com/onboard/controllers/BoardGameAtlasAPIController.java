@@ -54,8 +54,10 @@ public class BoardGameAtlasAPIController {
         parameters.put("gt_min_playtime", Integer.toString(playtimeRange.get(0) - 1));
         parameters.put("lt_max_playtime", Integer.toString(playtimeRange.get(1) + 1));
         parameters.put("lt_min_age", Integer.toString(minAge + 1));
-        if (!categories.isEmpty())
+        if (!categories.isEmpty()) {
             parameters.put("categories", String.join(",", categories));
+        }
+        parameters.put("order_by", "popularity");
         return parameters;
     }
 
@@ -108,6 +110,7 @@ public class BoardGameAtlasAPIController {
         Map<String, String> parameters = new HashMap<>();
         parameters.put("name", name);
         parameters.put("fuzzy_match", "true");
+        parameters.put("order_by", "popularity");
 
         List<GameSummary> gameSummaries = getGameSummaries(parameters, username);
         return new ResponseEntity<>(gameSummaries, HttpStatus.OK);

@@ -30,7 +30,6 @@ class GameNameSearch extends Component {
     };
 
     onFindClick = () => {
-        // TODO: Handle sending empty name
         if (this.state.gameName === "") {
             const newState = this.state;
             newState.triedToSendEmptyName = true;
