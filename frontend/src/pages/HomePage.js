@@ -62,8 +62,10 @@ class HomePage extends Component {
         } else if (this.state.searchStarted && !this.state.isLoaded) {
             return <div className="status-field d-flex align-items-center">
                 <Spinner className="spinner" animation="border" variant="light"/>
-                <span className="loading-message">Loading...</span>
+                <span className="loading-message">Searching...</span>
             </div>
+        } else if (this.state.searchStarted && this.state.games.length === 0) {
+            return <div className="title">Sorry, no games matching your requirements have been found.</div>
         } else {
             return this.state.games.map(game => <GameInfo key={game.name} game={game}/>);
         }
