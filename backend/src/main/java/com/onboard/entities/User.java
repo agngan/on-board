@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -25,9 +26,15 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull
+    @Column(unique = true)
     private final String username;
+    @NotNull
     private final String password;
+    @NotNull
+    @Column(unique = true)
     private final String email;
+    @NotNull
     private String secretCode = RandomString.make(10);
 
     @ManyToMany(fetch = FetchType.EAGER)
