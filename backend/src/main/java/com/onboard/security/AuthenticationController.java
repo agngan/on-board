@@ -1,5 +1,7 @@
 package com.onboard.security;
 
+import com.onboard.entities.User;
+import com.onboard.repositories.RoleRepository;
 import com.onboard.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,11 +22,13 @@ public class AuthenticationController {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public AuthenticationController(UserRepository userRepository, PasswordEncoder passwordEncoder) {
+    public AuthenticationController(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleRepository roleRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.roleRepository = roleRepository;
     }
 
     @GetMapping("/basicauth")
@@ -38,8 +43,14 @@ public class AuthenticationController {
             return new ResponseEntity<>(bindingResult.getAllErrors()
                     .stream().map(ObjectError::getDefaultMessage).collect(Collectors.toList()), HttpStatus.BAD_REQUEST);
         }
-        userRepository.save(registrationForm.toUser(passwordEncoder));
+        userRepository.save(getUser(registrationForm));
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private User getUser(RegistrationForm registrationForm) {
+        User user = registrationForm.toUser(passwordEncoder);
+        user.setRoles(Collections.singletonList(roleRepository.findByName("ROLE_USER")));
+        return user;
     }
 
     private void validateForm(RegistrationForm form, BindingResult bindingResult) {

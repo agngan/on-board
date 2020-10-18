@@ -42,10 +42,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebM
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // TODO: add handling different roles
         http.authorizeRequests()
                 .antMatchers(HttpMethod.GET, "/api", "/api/", "/api/rankings/**", "/api/games/**", "/api/wins/**", "/api/bga/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/api/register/**").permitAll()
+                .antMatchers("/api/users/**", "/api/roles/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and().httpBasic()
                 .and().cors()
