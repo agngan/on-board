@@ -77,6 +77,7 @@ public class MyGamesController {
             else
                 myGamesRecords.add(myGamesRecord);
         }
+        myGamesRecords.sort(Collections.reverseOrder());
         return new ResponseEntity<>(myGamesRecords, HttpStatus.OK);
     }
 
