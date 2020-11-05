@@ -25,7 +25,6 @@ class GameInfo extends Component {
                 {headers: AuthenticationService.getPostHeaders()})
                 .then(() => {
                     console.log("post successful");
-                    // window.location.replace("/my-games");
                     const newState = this.state;
                     newState.gameAdded = true;
                     this.setState(newState);
@@ -63,7 +62,8 @@ class GameInfo extends Component {
 
                         <Button className="custom-button mt-2" onClick={this.onAddGameClick}
                                 disabled={this.state.gameAdded}>
-                            <span className="custom-button-text">{this.state.gameAdded ? "Added" : "Add to my games"}</span>
+                            <span
+                                className="custom-button-text">{this.state.gameAdded ? "Added" : "Add to my games"}</span>
                         </Button>
                         <Link to={{
                             pathname: "/ranking",
