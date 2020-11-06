@@ -15,11 +15,6 @@ class Registration extends Component {
         repeatedPassword: ''
     };
 
-    componentDidMount() {
-        // get method sent to server to ensure that XSRF-TOKEN cookie exists
-        AxiosClient.get("", {withCredentials: true});
-    }
-
     onChange = event => {
         this.setState({[event.target.id]: event.target.value});
     };

@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 import AuthenticatedRoute from "./components/Authentication/AuthenticatedRoute";
+import AxiosClient from "./components/Authentication/AxiosClient";
 import NavBar from "./components/NavBar/NavBar";
 import HomePage from "./pages/HomePage";
 import MyGames from "./pages/MyGames";
@@ -12,6 +13,10 @@ import AddWin from "./pages/AddWin";
 import './App.css';
 
 function App() {
+
+    // get method sent to server to ensure that XSRF-TOKEN cookie exists
+    AxiosClient.get("", {withCredentials: true});
+
     return (
         <div className="App">
             <NavBar/>
