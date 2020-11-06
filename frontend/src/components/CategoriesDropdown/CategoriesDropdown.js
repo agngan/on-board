@@ -54,10 +54,17 @@ class CategoriesDropdown extends Component {
         console.log(newState.chosenCategories);
     };
 
+    getTitle = () => {
+        if (this.state.chosenCategories.length === 0)
+            return "Categories";
+        else
+            return this.state.chosenCategories.map(category => category.name).join(", ");
+    };
+
     render() {
         return (
             <div className="categories-dropdown">
-                <DropdownButton size="sm" variant="primary" title="Category">
+                <DropdownButton size="sm" variant="primary" title={this.getTitle()}>
                     <div className="categories-menu checkbox-menu overflow-auto scrollbar">
                         {this.state.categories.map(category => <CategoryCheckbox key={category.id}
                                                                                  name={category.name}
