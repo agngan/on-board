@@ -42,7 +42,7 @@ public class MyGamesController {
         this.bgaService = bgaService;
     }
 
-    @PostMapping("/add/{username}")
+    @PostMapping("/{username}/add")
     public void addGame(@PathVariable String username, @RequestBody GameToAdd gameToAdd) {
         if (gameToAdd.getId().matches("^[0-9]*$") && gameRepository.existsById(valueOf(gameToAdd.getId()))) {
             Game game = gameRepository.getById(valueOf(gameToAdd.getId()));
