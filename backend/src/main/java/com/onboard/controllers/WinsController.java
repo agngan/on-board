@@ -32,6 +32,22 @@ public class WinsController {
 
     @PostMapping("addWin/{username}")
     public ResponseEntity<List<String>> addWin(@PathVariable String username, @RequestBody WinInfo winInfo){
+        if (!gameRepository.existsById(winInfo.getGameId())){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        List<String> errors = validateWin(username, winInfo);
+        if (!errors.isEmpty()){
+            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
+        }
+
+        winRepository.save(new Win(LocalDate.now(), userRepository.findByUsername(username), gameRepository.getById(winInfo.getGameId())));
+
+        resetSecretCodes(winInfo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    private List<String> validateWin(String username, WinInfo winInfo) {
         List<String> errors = new ArrayList<>();
         for (WinValidationData validation : winInfo.getValidations()){
             if (validation.getUsername().equals(username)){
@@ -43,20 +59,14 @@ public class WinsController {
                 errors.add("Wrong secret code for user '" + validation.getUsername() + "'");
             }
         }
-        if (!errors.isEmpty()){
-            return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
-        }
+        return errors;
+    }
 
-        if (!gameRepository.existsById(winInfo.getGameId())){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        winRepository.save(new Win(LocalDate.now(), userRepository.findByUsername(username), gameRepository.getById(winInfo.getGameId())));
-
+    private void resetSecretCodes(@RequestBody WinInfo winInfo) {
         for (WinValidationData validation : winInfo.getValidations()){
             User user = userRepository.findByUsername(validation.getUsername());
             user.setSecretCode(RandomString.make(10));
             userRepository.save(user);
         }
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
